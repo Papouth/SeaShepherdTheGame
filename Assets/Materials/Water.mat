@@ -124,7 +124,7 @@ Material:
     - _SrcBlend: 1
     - _Surface: 0
     - _Use_Waves: 1
-    - _Water_Depth_Fade_Distance: 15
+    - _Water_Depth_Fade_Distance: 50
     - _Wave_Height: 0.05
     - _Wave_Scale: 0.1
     - _Wave_Speed: 0.03

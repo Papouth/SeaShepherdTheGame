@@ -11,15 +11,16 @@ Shader "Unlit/ToonShader"
 
   SubShader
   {
-    Tags { "RenderType"="Opaque" }
+    Tags { "RenderType"="Opaque"}
+
     ZWrite On
 
     LOD 200
 
     Pass
     {
+      
       CGPROGRAM
-
       #pragma vertex vert
       #pragma fragment frag
       #include "UnityCG.cginc"
@@ -73,7 +74,6 @@ Shader "Unlit/ToonShader"
       ENDCG
     }
   }
-
   // Enable depth writing
   Fallback "VertexLit"
 }
