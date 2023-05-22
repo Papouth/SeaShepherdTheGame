@@ -13,6 +13,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity = 0.1f;
 
+    [Header("Flotaison")]
+    [Tooltip("Hauteur de flotaison")]
+    [SerializeField] private float height = 0.1f;
+    [Tooltip("Rapidité d'une période de flotaison")]
+    [SerializeField] private float timer = 1;
+
+    private Vector3 initialPos;
+    private float offset;
+    private float playerY;
+
     [Header("Player Component")]
     public Camera cam;
     private PlayerInputManager playerInput;
@@ -25,6 +35,11 @@ public class PlayerMovement : MonoBehaviour
         playerInput = GetComponent<PlayerInputManager>();
         //animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+
+        initialPos = transform.position;
+
+        offset = 1 - (Random.value * 2);
     }
 
     private void Start()
@@ -37,11 +52,13 @@ public class PlayerMovement : MonoBehaviour
         Locomotion();
 
         SetAnimator();
+
+        FloatingEffect();
     }
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector3(movement.x * 10, 0, movement.z * 10);
+        rb.velocity = new Vector3(movement.x * 10, playerY, movement.z * 10);
     }
 
     /// <summary>
@@ -71,6 +88,16 @@ public class PlayerMovement : MonoBehaviour
 
     private void SetAnimator()
     {
+        // On peut imaginer de la fumée qui sort de la cheminée par exemple
         //animator.SetFloat("Movement", directionInput.magnitude);
+    }
+
+
+    /// <summary>
+    /// Permet de simuler un effet de flotaison sur les objets
+    /// </summary>
+    private void FloatingEffect()
+    {
+        playerY = initialPos.y * Mathf.Sin((Time.time + offset) * timer) * height;
     }
 }
