@@ -9,11 +9,13 @@ public class PlayerInputManager : MonoBehaviour
     private Vector2 moveInput;
     private bool canSelect;
     private bool canHonk;
+    private Vector2 mousePos;
     #endregion
 
 
     #region Bool Functions
     public Vector2 MoveInput => moveInput;
+    public Vector2 MousePos => mousePos;
 
     public bool CanSelect
     {
@@ -32,13 +34,14 @@ public class PlayerInputManager : MonoBehaviour
     #region Functions
     public void OnMovement(InputValue value)
     {
-        // On récupère la valeur du mouvement qu'on stock dans un Vector2
+        // On recupere la valeur du mouvement qu'on stock dans un Vector2
         moveInput = value.Get<Vector2>();
     }
 
     public void OnSelect()
     {
         canSelect = true;
+        mousePos = Mouse.current.position.ReadValue();
         Invoke("SelectTimer", 0.1f);
     }
 
