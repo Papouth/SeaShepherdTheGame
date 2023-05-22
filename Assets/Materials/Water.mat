@@ -125,9 +125,9 @@ Material:
     - _Surface: 0
     - _Use_Waves: 1
     - _Water_Depth_Fade_Distance: 15
-    - _Wave_Height: 0.35
+    - _Wave_Height: 0.05
     - _Wave_Scale: 0.1
-    - _Wave_Speed: 0.05
+    - _Wave_Speed: 0.03
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
