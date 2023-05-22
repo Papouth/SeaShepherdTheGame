@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "SeaShepherd/QuestScriptable", order = 1, fileName = "QuestName")]
-public class QuestScriptable : ScriptableObject
+public class Quest : ScriptableObject
 {
 	#region Variables
 	[SerializeField] private string questName;
+	[SerializeField] private string questDesc;
 	[SerializeField] private QType questType;
 	[SerializeField] private int exp;
 	[SerializeField] private int timeForCompletion = 1;
-	[SerializeField] private string fishToRelease;
 
 	public enum QType{
 		FishRelease,
@@ -21,10 +21,10 @@ public class QuestScriptable : ScriptableObject
 	
 	#region Properties
 	public string QuestName => questName;
+	public string QuestDesc => questDesc;
 	public QType QuestType => questType;
 	public int Exp => exp;
 	public int TimeForCompletion => timeForCompletion;
-	public string FishToRelease => fishToRelease;
 	#endregion
 	
 	#region Built-in Methods

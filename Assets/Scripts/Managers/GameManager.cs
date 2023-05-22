@@ -6,16 +6,16 @@ using System;
 public class GameManager : MonoBehaviour
 {
 	#region Variables
-	private int shipState;
+	private int _shipState;
 
 	private Player _player;
 
 	public static GameManager instance;
-	public static event Action<QuestScriptable.QType> QuestAdvancement;
+	public static event Action<Quest.QType> QuestAdvancement;
 	#endregion
 	
 	#region Properties
-	public int ShipState => shipState;
+	public int ShipState => _shipState;
 	#endregion
 	
 	#region Built-in Methods
@@ -29,14 +29,25 @@ public class GameManager : MonoBehaviour
 
 	void Start(){
 		_player = GameObject.Find("Player").GetComponent<Player>();
-		StartCoroutine(Test());
+		GetShipState();
 	}
 	#endregion
 	
 	#region Custom Methods
+	//Recupere le niveau du player, donc du bateau
+	public void GetShipState(){
+		_shipState = _player.Level;
+	}
+
+	//Lorqu'on a fait une action qui peut faire avancer une quete
+	public void QuestProgress(Quest.QType questType){
+		QuestAdvancement?.Invoke(questType);
+	}
+
+	// QuestProgress a replacer aux endroits adequats
 	IEnumerator Test(){
 		yield return new WaitForSeconds(1f);
-		QuestAdvancement?.Invoke(QuestScriptable.QType.Wastes);
+		QuestProgress(Quest.QType.StopPoaching);
 	}
 	#endregion
 }

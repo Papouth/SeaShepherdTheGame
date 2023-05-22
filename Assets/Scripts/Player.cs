@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Player : MonoBehaviour
 {
 	#region Variables
 	[SerializeField] private int expToLvlUp;
 
-	private int exp = 0;
-	private int level = 1;
+	public static event Action ShipLevelUp;
+
+	private int _exp = 0;
+	private int _level = 1;
 	#endregion
 	
 	#region Properties
+	public int Level => _level;
 	#endregion
 	
 	#region Built-in Methods
@@ -19,16 +23,16 @@ public class Player : MonoBehaviour
 	
 	#region Custom Methods
 	public void AddExp(int amount){
-		exp += amount;
-		print(exp.ToString() + "/" + expToLvlUp.ToString());
-		if (exp >= expToLvlUp){
+		_exp += amount;
+		if (_exp >= expToLvlUp){
 			LevelUp();
 		}
 	}
 
 	private void LevelUp(){
-		level++;
-		exp -= expToLvlUp;
+		_level++;
+		_exp -= expToLvlUp;
+		ShipLevelUp?.Invoke();
 	}
 	#endregion
 }

@@ -5,12 +5,14 @@ using UnityEngine;
 public class QuestManager : MonoBehaviour
 {
 	#region Variables
-	[SerializeField] private List<QuestScriptable> smallQuestList = new List<QuestScriptable>();
-	[SerializeField] private List<QuestScriptable> mediumQuestList = new List<QuestScriptable>();
-	[SerializeField] private List<QuestScriptable> greatQuestList = new List<QuestScriptable>();
-	[SerializeField] private Transform questListGO;
+	[SerializeField] private List<Quest> smallQuestList = new List<Quest>();
+	[SerializeField] private List<Quest> mediumQuestList = new List<Quest>();
+	[SerializeField] private List<Quest> greatQuestList = new List<Quest>();
 	
-	private Quest activeQuest;
+	private Quest _activeQuest;
+	private int _questProgressCount = 0;
+	private int _questClearedInARow = 0;
+	private bool _shipMustEvolve = false;
 
 	private GameManager _gm;
 	private Player _player;
@@ -18,6 +20,8 @@ public class QuestManager : MonoBehaviour
 	
 	#region Properties
 	#endregion
+
+	//Replacer les quetes correctement dans l'inspecteur
 	
 	#region Built-in Methods
 	void Start(){
@@ -25,37 +29,36 @@ public class QuestManager : MonoBehaviour
 		_player = GameObject.Find("Player").GetComponent<Player>();
 
 		GameManager.QuestAdvancement += QuestAdvancement;
+		Player.ShipLevelUp += ShipMustEvolve;
 
 		AddNewQuest();
 	}
 	#endregion
 	
 	#region Custom Methods
-	//Ajoute une nouvelle quete en fonction du bateau
+	//Ajoute une nouvelle quete en fonction du bateau si le joueur n'a pas deja realise 3 quetes
 	public void AddNewQuest(){
-		List<QuestScriptable> randomQuestList = ChooseRandomQuestList();
-		int randomIndex = Random.Range(0, randomQuestList.Count);
-		print(randomIndex);
-		QuestScriptable randomQuest = randomQuestList[randomIndex];
-
-		GameObject newQuestGO = new GameObject();
-		newQuestGO.transform.SetParent(questListGO);
-		newQuestGO.AddComponent<Quest>();
-		Quest newQuest = newQuestGO.GetComponent<Quest>();
-		newQuest.QuestDetails = randomQuest;
-		newQuestGO.name = newQuest.QuestDetails.QuestName;
-		Quest.EndOfQuest += EndQuest;
-		
-		activeQuest = newQuest;
+		if (!_shipMustEvolve){
+			if (_questClearedInARow < 3){
+				List<Quest> randomQuestList = ChooseRandomQuestList();
+				int randomIndex = Random.Range(0, randomQuestList.Count);
+				Quest randomQuest = randomQuestList[randomIndex];
+				
+				_activeQuest = randomQuest;
+			}
+			else{
+				print("retour base");
+			}
+		}
 	}
 
 	//Choisi une liste random par rapport au bateau
-	private List<QuestScriptable> ChooseRandomQuestList(){
-		List<QuestScriptable> questListToChoose = new List<QuestScriptable>();
-		if (_gm.ShipState == 0){
+	private List<Quest> ChooseRandomQuestList(){
+		List<Quest> questListToChoose = new List<Quest>();
+		if (_gm.ShipState == 1){
 			return smallQuestList;
 		}
-		else if (_gm.ShipState == 1){
+		else if (_gm.ShipState == 2){
 			int randomQuestList = Random.Range(0, 2);
 			if (randomQuestList == 0){
 				return smallQuestList;
@@ -79,16 +82,35 @@ public class QuestManager : MonoBehaviour
 	}
 
 	//Lorsqu'un event qui peut faire avancer une quete a lieu, verifie s'il y a une quete correspondante a cet event
-	private void QuestAdvancement(QuestScriptable.QType questType){
-		if (activeQuest.QuestDetails.QuestType == questType){
-			activeQuest.QuestAdvancement();
+	//Changer l'endroit d'ou provient l'event (ex : a la fin de la collecte d'un tas de dechets)
+	private void QuestAdvancement(Quest.QType questType){
+		if (_activeQuest){
+			if (_activeQuest.QuestType == questType){
+				_questProgressCount++;
+				if (_questProgressCount >= _activeQuest.TimeForCompletion){
+					EndQuest();
+				}
+			}
 		}
 	}
 
 	//Quete finie, donne exp et ajoute une nouvelle quete ou pas
 	public void EndQuest(){
-		_player.AddExp(activeQuest.QuestDetails.Exp);
-		Destroy(activeQuest.gameObject);
+		_player.AddExp(_activeQuest.Exp);
+		_questClearedInARow++;
+		_activeQuest = null;
+		AddNewQuest();
+	}
+
+	//Le joueur vient de level up, il doit ameliorer son bateau
+	private void ShipMustEvolve(){
+		_shipMustEvolve = true;
+		print("return to base, ship evolution unlocked");
+	}
+
+	//Le joueur vient d'ameliorer son bateau, il peut recevoir de nouvelles quetes
+	public void EndShipEvolution(){
+		_shipMustEvolve = false;
 		AddNewQuest();
 	}
 	#endregion
