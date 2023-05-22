@@ -8,16 +8,23 @@ public class QuestScriptable : ScriptableObject
 	#region Variables
 	[SerializeField] private string questName;
 	[SerializeField] private QType questType;
+	[SerializeField] private int exp;
 	[SerializeField] private int timeForCompletion = 1;
 	[SerializeField] private string fishToRelease;
 
-	private enum QType{
+	public enum QType{
 		FishRelease,
-		Wastes
+		Wastes,
+		StopPoaching
 	}
 	#endregion
 	
 	#region Properties
+	public string QuestName => questName;
+	public QType QuestType => questType;
+	public int Exp => exp;
+	public int TimeForCompletion => timeForCompletion;
+	public string FishToRelease => fishToRelease;
 	#endregion
 	
 	#region Built-in Methods

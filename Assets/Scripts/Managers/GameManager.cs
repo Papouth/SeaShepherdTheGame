@@ -1,17 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class GameManager : MonoBehaviour
 {
 	#region Variables
-	private string shipState = "small";
+	private int shipState;
+
+	private Player _player;
 
 	public static GameManager instance;
+	public static event Action<QuestScriptable.QType> QuestAdvancement;
 	#endregion
 	
 	#region Properties
-	public string ShipState => shipState;
+	public int ShipState => shipState;
 	#endregion
 	
 	#region Built-in Methods
@@ -22,8 +26,17 @@ public class GameManager : MonoBehaviour
 		}
 		instance = this;
 	}
+
+	void Start(){
+		_player = GameObject.Find("Player").GetComponent<Player>();
+		StartCoroutine(Test());
+	}
 	#endregion
 	
 	#region Custom Methods
+	IEnumerator Test(){
+		yield return new WaitForSeconds(1f);
+		QuestAdvancement?.Invoke(QuestScriptable.QType.Wastes);
+	}
 	#endregion
 }

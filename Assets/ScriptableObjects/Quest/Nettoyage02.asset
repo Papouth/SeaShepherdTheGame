@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3fedd17911e73284d9d2ddfcffac4e20, type: 3}
-  m_Name: Quest03
+  m_Name: Nettoyage02
   m_EditorClassIdentifier: 
-  questName: 
-  questType: 0
+  questName: Nettoyage02
+  questType: 1
+  exp: 20
   timeForCompletion: 1
   fishToRelease: 
