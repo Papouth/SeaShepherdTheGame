@@ -15,7 +15,7 @@ public class QuestManager : MonoBehaviour
 	private bool _shipMustEvolve = false;
 
 	private GameManager _gm;
-	private Player _player;
+	private PlayerExp _player;
 	#endregion
 	
 	#region Properties
@@ -26,10 +26,10 @@ public class QuestManager : MonoBehaviour
 	#region Built-in Methods
 	void Start(){
 		_gm = GameManager.instance;
-		_player = GameObject.Find("Player").GetComponent<Player>();
+		_player = GameObject.Find("Player").GetComponent<PlayerExp>();
 
 		GameManager.QuestAdvancement += QuestAdvancement;
-		Player.ShipLevelUp += ShipMustEvolve;
+		PlayerExp.ShipLevelUp += ShipMustEvolve;
 
 		AddNewQuest();
 	}

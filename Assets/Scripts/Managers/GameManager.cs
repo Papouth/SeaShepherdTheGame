@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 	#region Variables
 	private int _shipState;
 
-	private Player _player;
+	private PlayerExp _player;
 
 	public static GameManager instance;
 	public static event Action<Quest.QType> QuestAdvancement;
@@ -25,16 +25,16 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		instance = this;
+		
 	}
 
 	void Start(){
-		_player = GameObject.Find("Player").GetComponent<Player>();
+		_player = GameObject.Find("Player").GetComponent<PlayerExp>();
 		GetShipState();
 	}
 	#endregion
 	
 	#region Custom Methods
-	//Recupere le niveau du player, donc du bateau
 	public void GetShipState(){
 		_shipState = _player.Level;
 	}
