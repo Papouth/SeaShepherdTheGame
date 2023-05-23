@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 3f;
     private float currentSpeed;
+    public float shiftSpeed = 4f;
     public Vector3 directionInput;
     private Vector3 movement;
     [SerializeField] private float turnSmoothTime = 0.1f;
@@ -23,19 +24,22 @@ public class PlayerMovement : MonoBehaviour
     private float offset;
     private float playerY;
 
+    [Header("Boost")]
+    [SerializeField] private float boostRegen = 5f;
+    [SerializeField] private bool stopBoost;
+    [SerializeField] private bool boostRegenAvailable;
+    [SerializeField] private float timerBoost = 5f;
+
     [Header("Player Component")]
     public Camera cam;
     private PlayerInputManager playerInput;
-    public Animator animator;
     private Rigidbody rb;
     #endregion
 
     private void Awake()
     {
         playerInput = GetComponent<PlayerInputManager>();
-        //animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
-
 
         initialPos = transform.position;
 
@@ -51,9 +55,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Locomotion();
 
-        SetAnimator();
-
-        FloatingEffect();
+        BoostManager();
     }
 
     private void FixedUpdate()
@@ -82,16 +84,56 @@ public class PlayerMovement : MonoBehaviour
 
             directionInput = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
         }
+        else if (directionInput.magnitude < 0.1f)
+        {
+            turnSmoothVelocity = 0;
+            rb.velocity = Vector3.zero;
+            FloatingEffect();
+        }
 
-        movement = directionInput.normalized * (currentSpeed * Time.deltaTime);
+
+        if (!playerInput.CanShift)
+        {
+            // Je n'ai pas mon boost d'activé
+            movement = directionInput.normalized * (currentSpeed * Time.deltaTime);
+        }
+        else if (playerInput.CanShift)
+        {
+            // Tant que j'ai du boost je l'utilise
+            if (!stopBoost) movement = directionInput.normalized * (shiftSpeed * Time.deltaTime);
+            else if (stopBoost) movement = directionInput.normalized * (currentSpeed * Time.deltaTime);
+        }
     }
 
-    private void SetAnimator()
+    private void BoostManager()
     {
-        // On peut imaginer de la fumée qui sort de la cheminée par exemple
-        //animator.SetFloat("Movement", directionInput.magnitude);
-    }
+        if (playerInput.CanShift && !stopBoost)
+        {
+            timerBoost = 5f;
 
+            // Boost Activé
+            if (boostRegen > 0) boostRegen -= Time.deltaTime;
+
+            if (boostRegen <= 0)
+            {
+                // Si boost utilisé pendant 5 secondes plus de boost
+                stopBoost = true;
+            }
+        }
+
+        if (!playerInput.CanShift && boostRegen < 5)
+        {
+            // Si boost pas activé on patiente 5 secondes
+            if (timerBoost > 0) timerBoost -= Time.deltaTime;
+            else if (timerBoost <= 0)
+            {
+                // Au bout des 5 secondes on redonne du boost au joueur
+                boostRegen += Time.deltaTime * 1.25f;
+                boostRegenAvailable = false;
+                stopBoost = false;
+            }
+        }
+    }
 
     /// <summary>
     /// Permet de simuler un effet de flotaison sur les objets
