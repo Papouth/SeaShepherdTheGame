@@ -47,7 +47,7 @@ public class PlayerInteraction : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(mousePosOnClick);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)){
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")){
-                    hit.transform.parent.gameObject.GetComponent<Enemy>().CheckFightArea();
+                    hit.transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(hit.point);
                 }
             }
         }
