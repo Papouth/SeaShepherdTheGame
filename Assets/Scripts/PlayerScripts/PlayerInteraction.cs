@@ -8,9 +8,14 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInputManager playerInput;
 
     private bool _onClick = false;
+    private float _damageAmount;
     #endregion
 
     #region Properties
+    public float DamageAmount{
+        get{return _damageAmount;}
+        set{_damageAmount = value;}
+    }
     #endregion
 
     #region Built-in Methods
@@ -47,7 +52,7 @@ public class PlayerInteraction : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(mousePosOnClick);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)){
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")){
-                    hit.transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(hit.point);
+                    hit.transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(hit.point, _damageAmount);
                 }
             }
         }

@@ -7,6 +7,8 @@ public class PlayerExp : MonoBehaviour
 {
 	#region Variables
 	[SerializeField] private int expToLvlUp;
+    //Liste de degats de chaque bateau (du bateau de depart a la derniere evolution)
+    [SerializeField] private List<float> damagePerShipUpgrade = new List<float>();
 
 	public static event Action ShipLevelUp;
 
@@ -19,6 +21,9 @@ public class PlayerExp : MonoBehaviour
 	#endregion
 	
 	#region Built-in Methods
+	void Start(){
+		SetDamageAmount();
+	}
 	#endregion
 	
 	#region Custom Methods
@@ -33,6 +38,13 @@ public class PlayerExp : MonoBehaviour
 		_level++;
 		_exp -= expToLvlUp;
 		ShipLevelUp?.Invoke();
+		if (_level <= 3){
+			SetDamageAmount();
+		}
+	}
+
+	private void SetDamageAmount(){
+		GetComponent<PlayerInteraction>().DamageAmount = damagePerShipUpgrade[_level - 1];
 	}
 	#endregion
 }

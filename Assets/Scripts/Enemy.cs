@@ -58,10 +58,10 @@ public class Enemy : MonoBehaviour
 	
 	#region Custom Methods
 	//Retire des HP a l'ennemi si le joueur se trouve dans la zone de combat
-	public void TakeDamage(Vector3 hitPos){
+	public void TakeDamage(Vector3 hitPos, float damageAmount){
 		if (_playerInArea){
-			_currentHP--;
-			_ui.ShowPlayerDamage(hitPos, 1);
+			_currentHP -= damageAmount;
+			_ui.ShowPlayerDamage(hitPos, damageAmount);
 			_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
 			if (_currentHP <= 0){
 				Death();
