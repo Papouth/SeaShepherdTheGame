@@ -8,9 +8,14 @@ public class PlayerInteraction : MonoBehaviour
     private PlayerInputManager playerInput;
 
     private bool _onClick = false;
+    private float _damageAmount;
     #endregion
 
     #region Properties
+    public float DamageAmount{
+        get{return _damageAmount;}
+        set{_damageAmount = value;}
+    }
     #endregion
 
     #region Built-in Methods
@@ -38,6 +43,7 @@ public class PlayerInteraction : MonoBehaviour
         playerInput.CanHonk = false;
     }
 
+    //Lors d'un click, check ce que le joueur a clique puis agit en consequence
     private void OnPlayerSelect(){
         if (!_onClick){
             _onClick = true;
@@ -45,8 +51,9 @@ public class PlayerInteraction : MonoBehaviour
             Vector3 mousePosOnClick = new Vector3(playerInput.MousePos.x, playerInput.MousePos.y, Camera.main.nearClipPlane);
             Ray ray = Camera.main.ScreenPointToRay(mousePosOnClick);
             if (Physics.Raycast(ray, out hit, Mathf.Infinity)){
-                GameObject cube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                cube.transform.position = hit.point;
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")){
+                    hit.transform.parent.gameObject.GetComponent<Enemy>().TakeDamage(hit.point, _damageAmount);
+                }
             }
         }
     }

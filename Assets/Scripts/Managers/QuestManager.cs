@@ -16,6 +16,8 @@ public class QuestManager : MonoBehaviour
 
 	private GameManager _gm;
 	private PlayerExp _player;
+
+	public static QuestManager instance;
 	#endregion
 	
 	#region Properties
@@ -24,6 +26,14 @@ public class QuestManager : MonoBehaviour
 	//Replacer les quetes correctement dans l'inspecteur
 	
 	#region Built-in Methods
+	void Awake(){
+		if (instance != null){
+			Destroy(gameObject);
+			return;
+		}
+		instance = this;
+	}
+
 	void Start(){
 		_gm = GameManager.instance;
 		_player = GameObject.Find("Player").GetComponent<PlayerExp>();
@@ -112,6 +122,14 @@ public class QuestManager : MonoBehaviour
 	public void EndShipEvolution(){
 		_shipMustEvolve = false;
 		AddNewQuest();
+	}
+
+	public void CheckForEnemyExp(int expAmount){
+		if (_activeQuest){
+			if (_activeQuest.QuestType != Quest.QType.StopPoaching){
+				_player.AddExp(expAmount);
+			}
+		}
 	}
 	#endregion
 }
