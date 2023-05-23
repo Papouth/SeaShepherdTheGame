@@ -27,7 +27,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Boost")]
     [SerializeField] private float boostRegen = 5f;
     [SerializeField] private bool stopBoost;
-    [SerializeField] private bool boostRegenAvailable;
     [SerializeField] private float timerBoost = 5f;
 
     [Header("Player Component")]
@@ -129,7 +128,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Au bout des 5 secondes on redonne du boost au joueur
                 boostRegen += Time.deltaTime * 1.25f;
-                boostRegenAvailable = false;
                 stopBoost = false;
             }
         }
