@@ -8,8 +8,7 @@ public class RandomNavigation : MonoBehaviour
 	#region Variables
 	[SerializeField] private float randomXRange;
 	[SerializeField] private float randomZRange;
-    [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private float turnSmoothVelocity = 0.1f;
+    [SerializeField] private float turnSmoothVelocity = .1f;
 
 	private Vector3 _spawnPos;
 	private Vector3 _randomDestination = Vector3.zero;
@@ -46,7 +45,7 @@ public class RandomNavigation : MonoBehaviour
 
 	void FixedUpdate(){
 		if (_isMoving){
-			_rb.velocity = _randomDirection;
+			_rb.velocity = transform.forward;
 		}
 	}
 	#endregion
@@ -57,16 +56,17 @@ public class RandomNavigation : MonoBehaviour
 		float randomZ = Random.Range(-randomZRange, randomZRange);
 		_randomDestination = new Vector3(_spawnPos.x + randomX, _spawnPos.y, _spawnPos.z + randomZ);
 		_hasRandomDest = true;
+		Debug.DrawLine(_randomDestination, _randomDestination + Vector3.up, Color.red, 10f);
 	}
 
 	private void MovementRotation(){
-		if (_hasRandomDest){
-            float targetAngle = Mathf.Atan2(_randomDestination.x, _randomDestination.z) * Mathf.Rad2Deg;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0, angle, 0);
-            _randomDirection = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-			Debug.DrawRay(_randomDestination + Vector3.up, _randomDestination, Color.red, 10f);
-        }
+		if (_isMoving){
+			Quaternion baseRotation = transform.rotation;
+			transform.LookAt(_randomDestination);
+			Quaternion destRotation = transform.rotation;
+			transform.rotation = baseRotation;
+			transform.rotation = Quaternion.Slerp(baseRotation, destRotation, Time.deltaTime * turnSmoothVelocity);
+		}
 	}
 
 	private void CheckDestinationDistance(){
