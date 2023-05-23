@@ -53,6 +53,24 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RightClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""2e1bdc52-43ab-484e-9368-3211f7fec35d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shift"",
+                    ""type"": ""Value"",
+                    ""id"": ""aeaf0563-64b0-4477-9f02-dfd621396ea7"",
+                    ""expectedControlType"": ""Integer"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -132,6 +150,28 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                     ""action"": ""Honk"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3a22faa-7d55-44a7-9d07-0e1d04e13b93"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RightClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bb0c5753-9eb2-4727-9b8d-58816ff95bd8"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Hold(duration=0.25)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shift"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -143,6 +183,8 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
         m_Player_Select = m_Player.FindAction("Select", throwIfNotFound: true);
         m_Player_Honk = m_Player.FindAction("Honk", throwIfNotFound: true);
+        m_Player_RightClick = m_Player.FindAction("RightClick", throwIfNotFound: true);
+        m_Player_Shift = m_Player.FindAction("Shift", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +247,8 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Movement;
     private readonly InputAction m_Player_Select;
     private readonly InputAction m_Player_Honk;
+    private readonly InputAction m_Player_RightClick;
+    private readonly InputAction m_Player_Shift;
     public struct PlayerActions
     {
         private @PlayerMap m_Wrapper;
@@ -212,6 +256,8 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         public InputAction @Movement => m_Wrapper.m_Player_Movement;
         public InputAction @Select => m_Wrapper.m_Player_Select;
         public InputAction @Honk => m_Wrapper.m_Player_Honk;
+        public InputAction @RightClick => m_Wrapper.m_Player_RightClick;
+        public InputAction @Shift => m_Wrapper.m_Player_Shift;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +276,12 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @Honk.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHonk;
                 @Honk.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHonk;
                 @Honk.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnHonk;
+                @RightClick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
+                @RightClick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
+                @RightClick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRightClick;
+                @Shift.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
+                @Shift.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
+                @Shift.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnShift;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +295,12 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
                 @Honk.started += instance.OnHonk;
                 @Honk.performed += instance.OnHonk;
                 @Honk.canceled += instance.OnHonk;
+                @RightClick.started += instance.OnRightClick;
+                @RightClick.performed += instance.OnRightClick;
+                @RightClick.canceled += instance.OnRightClick;
+                @Shift.started += instance.OnShift;
+                @Shift.performed += instance.OnShift;
+                @Shift.canceled += instance.OnShift;
             }
         }
     }
@@ -252,5 +310,7 @@ public partial class @PlayerMap : IInputActionCollection2, IDisposable
         void OnMovement(InputAction.CallbackContext context);
         void OnSelect(InputAction.CallbackContext context);
         void OnHonk(InputAction.CallbackContext context);
+        void OnRightClick(InputAction.CallbackContext context);
+        void OnShift(InputAction.CallbackContext context);
     }
 }
