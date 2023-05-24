@@ -66,7 +66,6 @@ public class RandomNavigation : MonoBehaviour
 		float randomX = Random.Range(-randomXRange, randomXRange);
 		float randomZ = Random.Range(-randomZRange, randomZRange);
 		_randomDestination = new Vector3(_spawnPos.x + randomX, _spawnPos.y, _spawnPos.z + randomZ);
-		Debug.DrawLine(_randomDestination, _randomDestination + Vector3.up, Color.red, 30f);
 		RaycastHit hit;
 		if (Physics.Raycast(_randomDestination + Vector3.up * 2, -Vector3.up, out hit, raycastDistanceForRandomDestination)){
 			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")){
@@ -117,16 +116,15 @@ public class RandomNavigation : MonoBehaviour
 	//Contourne les obstacles (a voir si on utilise selon les spawns)
 	private void CheckObstacles(){
 		RaycastHit hit;
-		Debug.DrawRay(transform.position, transform.forward * 2, Color.green, 10f);
 		if (Physics.Raycast(transform.position + Vector3.up / 2, transform.forward, out hit, 2f) && _distanceRemaining > 2){
 			if (CheckRandomDestinationDir()){
 				FindDirForAvoindingObstacles(1f, false, false);
 				_hasStepDestination = true;
-				Debug.DrawLine(_randomDestinationStep, _randomDestinationStep + Vector3.up, Color.blue, 10f);
 			}
 		}
 	}
 
+	//Check s'il y a besoin de contourner l'obstacle pour arriver a la destination random
 	private bool CheckRandomDestinationDir(){
 		bool isGoodDir = true;
 		if (transform.forward.x >= 0){
@@ -152,24 +150,21 @@ public class RandomNavigation : MonoBehaviour
 		return isGoodDir;
 	}
 
+	//Cherche un point a cote de lui qui servira a eviter l'obstacle
 	private void FindDirForAvoindingObstacles(float raycastOffset, bool toRight, bool toLeft){
 		RaycastHit hit;
 		bool canGoRight = true;
 		bool canGoLeft = true;
-		Debug.DrawRay(transform.position, transform.forward + transform.right * raycastOffset, Color.green, 10f);
 		if (Physics.Raycast(transform.position + Vector3.up / 2, transform.forward + transform.right * raycastOffset, out hit, 2f)){
 			canGoRight = false;
 		}
-		Debug.DrawRay(transform.position, transform.forward + -transform.right * raycastOffset, Color.yellow, 10f);
 		if (Physics.Raycast(transform.position + Vector3.up / 2, transform.forward + -transform.right * raycastOffset, out hit, 2f)){
 			canGoLeft = false;
 		}
 		if (canGoLeft && !canGoRight){
-			print("end01");
 			_randomDestinationStep = transform.position +transform.forward - transform.right * raycastOffset * 1.5f;
 		}
 		else if (!canGoLeft && canGoRight){
-			print("end02");
 			_randomDestinationStep = transform.position + transform.forward + transform.right * raycastOffset * 1.5f;
 		}
 		else if (canGoLeft && canGoRight){
@@ -177,7 +172,6 @@ public class RandomNavigation : MonoBehaviour
 				FindDirForAvoindingObstacles(raycastOffset * .9f, canGoRight, canGoLeft);
 			}
 			else{ //Droite par defaut
-				print("end03");
 				_randomDestinationStep = transform.position + transform.forward + transform.right * raycastOffset * 1.5f;
 			}
 		}
@@ -186,7 +180,6 @@ public class RandomNavigation : MonoBehaviour
 				FindDirForAvoindingObstacles(raycastOffset * 1.5f, canGoRight, canGoLeft);
 			}
 			else{ //Tjrs la droite par defaut
-				print("end04");
 				_randomDestinationStep = transform.position + (transform.forward + transform.right * raycastOffset / 9 * 10) * 1.5f;
 			}
 		}
