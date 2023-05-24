@@ -11,7 +11,7 @@ public class PlayerInputManager : MonoBehaviour
     private bool canHonk;
     private Vector2 mousePos;
     private bool canShift;
-    private bool canRightClick;
+    //private bool canRightClick;
     #endregion
 
 
@@ -37,11 +37,11 @@ public class PlayerInputManager : MonoBehaviour
         set { canShift = value; }
     }
 
-    public bool CanRightClick
-    {
-        get { return canRightClick; }
-        set { canRightClick = value; }
-    }
+    //public bool CanRightClick
+    //{
+    //    get { return canRightClick; }
+    //    set { canRightClick = value; }
+    //}
     #endregion
 
 
@@ -56,7 +56,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         canSelect = true;
         mousePos = Mouse.current.position.ReadValue();
-        Invoke("SelectTimer", 0.1f);
+        Invoke("SelectTimer", 0.05f);
     }
 
     private void SelectTimer()
@@ -76,14 +76,14 @@ public class PlayerInputManager : MonoBehaviour
 
     public void OnRightClick()
     {
-        canRightClick = true;
-        mousePos = Mouse.current.position.ReadValue();
-        Invoke("RightClickTimer", 0.1f);
+        //canRightClick = true;
+        //mousePos = Mouse.current.position.ReadValue();
+        //Invoke("RightClickTimer", 0.5f);
     }
 
-    private void RightClickTimer()
-    {
-        canRightClick = false;
-    }
+    //private void RightClickTimer()
+    //{
+    //    canRightClick = false;
+    //}
     #endregion
 }
