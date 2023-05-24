@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movement;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity = 0.1f;
+
+    [Header("Player Click Movement")]
+    [SerializeField] private InputAction rightClickAction;
+    private Vector3 newPos;
+    private Coroutine coroutine;
+    [SerializeField] private LayerMask groundLayer;
 
     [Header("Flotaison")]
     [Tooltip("Hauteur de flotaison")]
@@ -35,6 +42,19 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     #endregion
 
+    #region Built-in Methods
+    private void OnEnable()
+    {
+        rightClickAction.Enable();
+        rightClickAction.performed += ClickLocomotion;
+    }
+
+    private void OnDisable()
+    {
+        rightClickAction.performed -= ClickLocomotion;
+        rightClickAction.Disable();
+    }
+
     private void Awake()
     {
         playerInput = GetComponent<PlayerInputManager>();
@@ -48,6 +68,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentSpeed = moveSpeed;
+        newPos = transform.position;
     }
 
     private void Update()
@@ -61,7 +82,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(movement.x * 10, playerY, movement.z * 10);
     }
+    #endregion
 
+
+    #region Customs Methods
     /// <summary>
     /// Gere le deplacement du personnage avec le character controller
     /// </summary>
@@ -104,6 +128,29 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void ClickLocomotion(InputAction.CallbackContext context)
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(playerInput.MousePos);
+        if (Physics.Raycast(ray, out hit, 200f, groundLayer))
+        {
+            if (coroutine != null) StopCoroutine(coroutine);
+            coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
+        }
+    }
+
+    private IEnumerator PlayerMoveTowards(Vector3 target)
+    {
+        float playerDistanceToFloor = transform.position.y - target.y;
+        target.y += playerDistanceToFloor;
+
+        while (Vector3.Distance(transform.position, target) > 0.1f)
+        {
+            Vector3 destination = Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
+            transform.position = destination;
+            yield return null;
+        }
+    }
     private void BoostManager()
     {
         if (playerInput.CanShift && !stopBoost)
@@ -140,4 +187,5 @@ public class PlayerMovement : MonoBehaviour
     {
         playerY = initialPos.y * Mathf.Sin((Time.time + offset) * timer) * height;
     }
+    #endregion
 }
