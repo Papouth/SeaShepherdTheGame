@@ -8,8 +8,10 @@ public class RandomNavigation : MonoBehaviour
 	#region Variables
 	[SerializeField] private float randomXRange;
 	[SerializeField] private float randomZRange;
+	[SerializeField] private float movementSpeed = 1f;
     [SerializeField] private float turnSmoothVelocity = .1f;
 	[SerializeField] private float timeBetweenEachMovement;
+	[SerializeField] private float raycastDistanceForRandomDestination;
 
 	private Vector3 _spawnPos;
 	private Vector3 _randomDestination = Vector3.zero;
@@ -50,7 +52,7 @@ public class RandomNavigation : MonoBehaviour
 
 	void FixedUpdate(){
 		if (_isMoving){
-			_rb.velocity = transform.forward;
+			_rb.velocity = transform.forward * movementSpeed;
 		}
 	}
 	#endregion
@@ -60,8 +62,15 @@ public class RandomNavigation : MonoBehaviour
 		float randomX = Random.Range(-randomXRange, randomXRange);
 		float randomZ = Random.Range(-randomZRange, randomZRange);
 		_randomDestination = new Vector3(_spawnPos.x + randomX, _spawnPos.y, _spawnPos.z + randomZ);
-		_hasRandomDest = true;
 		Debug.DrawLine(_randomDestination, _randomDestination + Vector3.up, Color.red, 10f);
+		RaycastHit hit;
+		if (Physics.Raycast(_randomDestination + Vector3.up * 2, -Vector3.up, out hit, raycastDistanceForRandomDestination)){
+			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")){
+				GetRandomDestination();
+				return;
+			}
+		}
+		_hasRandomDest = true;
 	}
 
 	private void MovementRotation(){
@@ -100,7 +109,9 @@ public class RandomNavigation : MonoBehaviour
 	}
 
 	IEnumerator TimeBetweenEachRandomDestination(){
+		_rb.constraints = RigidbodyConstraints.FreezeRotation;
 		yield return new WaitForSeconds(timeBetweenEachMovement);
+		_rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		GetRandomDestination();
 	}
 	#endregion
