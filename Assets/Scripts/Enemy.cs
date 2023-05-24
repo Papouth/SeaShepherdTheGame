@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
 	private bool _playerInArea = false;
 	private bool _regen = false;
 	private float _hpToRegenInFight;
+	private bool _isMoving = false;
 
 	private PlayerExp _playerExp;
 	private UIManager _ui;
@@ -22,6 +23,10 @@ public class Enemy : MonoBehaviour
 	#endregion
 	
 	#region Properties
+	public bool IsMoving{
+		get{return _isMoving;}
+		set{_isMoving = value;}
+	}
 	#endregion
 	
 	#region Built-in Methods
@@ -37,6 +42,12 @@ public class Enemy : MonoBehaviour
 		GetComponent<SphereCollider>().radius = fightAreaRadius;
 		_ui.SetEnemyHealthBar(transform.GetChild(1).gameObject, enemyMaxHP);
     }
+
+	void Update(){
+		if (_isMoving){
+			_ui.EnemyHealthBarRotation(transform.GetChild(1).gameObject);
+		}
+	}
 	
 	void OnTriggerEnter(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){

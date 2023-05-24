@@ -9,12 +9,14 @@ public class RandomNavigation : MonoBehaviour
 	[SerializeField] private float randomXRange;
 	[SerializeField] private float randomZRange;
     [SerializeField] private float turnSmoothVelocity = .1f;
+	[SerializeField] private float timeBetweenEachMovement;
 
 	private Vector3 _spawnPos;
 	private Vector3 _randomDestination = Vector3.zero;
 	private Vector3 _randomDirection;
 	private bool _hasRandomDest = false;
 	private bool _isMoving = false;
+	private float _distanceRemaining;
 
 	private Rigidbody _rb;
 	#endregion
@@ -36,6 +38,9 @@ public class RandomNavigation : MonoBehaviour
         if (_hasRandomDest){
 			_hasRandomDest = false;
 			_isMoving = true;
+			if (gameObject.layer == LayerMask.NameToLayer("Enemy")){
+				GetComponent<Enemy>().IsMoving = true;
+			}
 		}
 		if (_isMoving){
 			MovementRotation();
@@ -70,13 +75,33 @@ public class RandomNavigation : MonoBehaviour
 	}
 
 	private void CheckDestinationDistance(){
-		float distanceRemaining = Vector3.Distance(transform.position, _randomDestination);
-		print(_randomDestination);
-		print(distanceRemaining);
-		if (distanceRemaining <= .5f){
+		_distanceRemaining = Vector3.Distance(transform.position, _randomDestination);
+		if (_distanceRemaining <= .5f){
 			_isMoving = false;
-			_rb.velocity = Vector3.zero;
+			StartCoroutine(DestinationReached());
+			if (gameObject.layer == LayerMask.NameToLayer("Enemy")){
+				GetComponent<Enemy>().IsMoving = false;
+			}
+			StartCoroutine(TimeBetweenEachRandomDestination());
 		}
+	}
+
+	IEnumerator DestinationReached(){
+		Vector3 deceleration = _rb.velocity / 120;
+		for (int i = 0; i < 120; i++){
+			if (i != 119){
+				_rb.velocity -= deceleration;
+			}
+			else{
+				_rb.velocity = Vector3.zero;
+			}
+			yield return new WaitForEndOfFrame();
+		}
+	}
+
+	IEnumerator TimeBetweenEachRandomDestination(){
+		yield return new WaitForSeconds(timeBetweenEachMovement);
+		GetRandomDestination();
 	}
 	#endregion
 }

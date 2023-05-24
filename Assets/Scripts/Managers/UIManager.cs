@@ -27,12 +27,15 @@ public class UIManager : MonoBehaviour
 	
 	#region Custom Methods
 	public void SetEnemyHealthBar(GameObject enemyHealthBar, float maxHP){
-		enemyHealthBar.transform.LookAt(Camera.main.transform);
-		Vector3 onlyXRotation = new Vector3(enemyHealthBar.transform.eulerAngles.x, 0, 0);
-		enemyHealthBar.transform.eulerAngles = -onlyXRotation;
 		Slider slider = enemyHealthBar.transform.GetChild(0).gameObject.GetComponent<Slider>();
 		slider.maxValue = maxHP;
 		slider.value = maxHP;
+	}
+
+	public void EnemyHealthBarRotation(GameObject enemyHealthBar){
+		enemyHealthBar.transform.LookAt(Camera.main.transform);
+		Vector3 onlyXRotation = new Vector3(enemyHealthBar.transform.eulerAngles.x, 0, 0);
+		enemyHealthBar.transform.eulerAngles = -onlyXRotation;
 	}
 
 	public void UpdateEnemyHealthBar(GameObject enemyHealthBar, float currentHP){
