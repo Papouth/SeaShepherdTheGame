@@ -15,7 +15,9 @@ public class SpawnManager : MonoBehaviour
     void Start()
     {
         print(field.GetComponent<Renderer>().bounds.size);
-    }
+		GameObject newCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+		newCube.transform.position = field.transform.position + Vector3.right;
+	}
 
     void Update()
     {

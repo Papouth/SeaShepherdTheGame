@@ -15,6 +15,7 @@ public class FishToRescue : MonoBehaviour
 	private float _currentHP;
 	private bool _canHitThis = true;
 	private float _wastesDisappearanceRate;
+	private GameObject _healthBar;
 
 	private GameManager _gm;
 	private UIManager _ui;
@@ -29,31 +30,38 @@ public class FishToRescue : MonoBehaviour
 		_gm = GameManager.instance;
 		_ui = UIManager.instance;
 		
+		_healthBar = transform.GetChild(2).gameObject;
+		_healthBar.GetComponent<Canvas>().worldCamera = Camera.main;
 		_currentHP = fishMaxHP;
 		_wastesDisappearanceRate = 1f / wastesNumber;
 		GetComponent<SphereCollider>().radius = inRangeRadius;
-		SpawnWastes();
-    }
+		_ui.SetHealthBar(_healthBar, fishMaxHP);
+		_ui.HealthBarRotation(_healthBar);
 
-    void Update()
-    {
-        
+		SpawnWastes();
     }
 
 	void OnTriggerEnter(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
 			_playerInArea = true;
+			if (_canHitThis){
+				_healthBar.SetActive(true);
+			}
 		}
 	}
 
 	void OnTriggerExit(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
 			_playerInArea = false;
+			if (_canHitThis){
+				_healthBar.SetActive(false);
+			}
 		}
 	}
 	#endregion
 	
 	#region Custom Methods
+	//Spawn les dechets qui vont disparaitre au fur et a mesure des clicks
 	private void SpawnWastes(){
 		for (int i = 0; i < wastesNumber; i++){
 			float randomX = 0;
@@ -66,13 +74,16 @@ public class FishToRescue : MonoBehaviour
 			}
 			Transform newWaste = Instantiate(wastesGOList[Random.Range(0, wastesGOList.Count)].transform, transform.position + newPos, Quaternion.identity);
 			newWaste.SetParent(transform.GetChild(1));
+			newWaste.gameObject.layer = LayerMask.NameToLayer("Fish");
 		}
 	}
 
+	//Enleve de la "vie" aux dechets puis apres un certain taux de pv restant detruit un dechet
 	public void TakeDamage(Vector3 hitPos, float damageAmount){
 		if (_playerInArea && _canHitThis){
 			_currentHP -= damageAmount;
 			_ui.ShowPlayerDamage(hitPos, damageAmount);
+			_ui.UpdateHealthBar(_healthBar, _currentHP);
 			if (_currentHP / fishMaxHP <= (transform.GetChild(1).childCount - 1) * _wastesDisappearanceRate){
 				Destroy(transform.GetChild(1).GetChild(transform.GetChild(1).childCount - 1).gameObject);
 			}
@@ -82,11 +93,13 @@ public class FishToRescue : MonoBehaviour
 		}
 	}
 
+	//Le poisson est libere
 	public void Release(){
 		_canHitThis = false;
 		GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 		_gm.QuestProgress(Quest.QType.FishRelease);
 		GetComponent<RandomNavigation>().enabled = true;
+		_healthBar.SetActive(false);
 	}
 	#endregion
 }
