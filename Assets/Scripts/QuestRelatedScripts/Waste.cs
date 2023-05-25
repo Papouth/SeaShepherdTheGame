@@ -15,6 +15,7 @@ public class Waste : MonoBehaviour
 	private float _wastesDisappearanceRate;
 	private float _currentHP;
 	private GameObject _healthBar;
+	private Transform _wasteSelected;
 
 	private GameManager _gm;
 	private UIManager _ui;
@@ -65,7 +66,6 @@ public class Waste : MonoBehaviour
 			newWaste.SetParent(transform.GetChild(0));
 		}
 		_wastesDisappearanceRate = 1f / transform.GetChild(0).childCount;
-		print(_wastesDisappearanceRate);
 	}
 	
 	//Les dechets perdent de la "vie" puis a un certain taux de HP disparaissent
@@ -75,12 +75,24 @@ public class Waste : MonoBehaviour
 			_ui.ShowPlayerDamage(hitPos, damageAmount);
 			_ui.UpdateHealthBar(_healthBar, _currentHP);
 			if (_currentHP / wasteMaxHP <= (transform.GetChild(0).childCount - 1) * _wastesDisappearanceRate){
-				Destroy(transform.GetChild(0).GetChild(transform.GetChild(0).childCount - 1).gameObject);
+				WasteToDestroy(hitPos);
 			}
 			if (_currentHP <= 0){
 				WastesDisappearance();
 			}
 		}
+	}
+
+	private void WasteToDestroy(Vector3 hit){
+		foreach (Transform waste in transform.GetChild(0)){
+			if (_wasteSelected == null){
+				_wasteSelected = waste;
+			}
+			else if (Vector3.Distance(hit, waste.position) < Vector3.Distance(hit, _wasteSelected.position)){
+				_wasteSelected = waste;
+			}
+		}
+		Destroy(_wasteSelected.gameObject);
 	}
 
 	//Tous les dechets ont ete ramasse

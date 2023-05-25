@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
 
 	void Update(){
 		if (_isMoving){
-			_ui.HealthBarRotation(transform.GetChild(1).gameObject);
+		_ui.HealthBarRotation(transform.GetChild(1).gameObject);
 		}
 	}
 	
@@ -64,6 +64,19 @@ public class Enemy : MonoBehaviour
 				_regen = true;
 				StartCoroutine(ResetEnemy());
 			}
+		}
+	}
+
+	void OnCollisionEnter(Collision other){
+		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
+			GetComponent<Rigidbody>().velocity = Vector3.zero;
+			GetComponent<Rigidbody>().isKinematic = true; 
+		}
+	}
+
+	void OnCollisionExit(Collision other){
+		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
+			GetComponent<Rigidbody>().isKinematic = false;
 		}
 	}
 	#endregion
