@@ -15,7 +15,7 @@ Shader "Unlit/ToonShader"
 
     ZWrite On
 
-    LOD 200
+    LOD 500
 
     Pass
     {

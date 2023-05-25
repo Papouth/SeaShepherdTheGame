@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -35,8 +35,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool stopBoost;
     [SerializeField] private float timerBoost = 5f;
 
+    [Header("MiniMap")]
+    private bool camOnMap;
+    private int hightCap = 10;
+    private int lowCap = 5;
+
     [Header("Player Component")]
-    public Camera cam;
+    private Camera cam;
+    [SerializeField] private CinemachineVirtualCamera playerCam;
+    [SerializeField] private CinemachineVirtualCamera mapCam;
     private PlayerInputManager playerInput;
     private Rigidbody rb;
     #endregion
@@ -44,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
     #region Built-in Methods
     private void Awake()
     {
+        cam = Camera.main;
         playerInput = GetComponent<PlayerInputManager>();
         rb = GetComponent<Rigidbody>();
 
@@ -177,6 +185,26 @@ public class PlayerMovement : MonoBehaviour
                 boostRegen += Time.deltaTime * 1.25f;
                 stopBoost = false;
             }
+        }
+    }
+
+    public void SwitchCameraMap()
+    {
+        if (!camOnMap)
+        {
+            // On met la camera sur la mini map
+            playerCam.Priority = lowCap;
+            mapCam.Priority = hightCap;
+            camOnMap = true;
+
+            // On executera le code d'ajout d'UI sur la mini map ici
+        }
+        else if (camOnMap)
+        {
+            // On met la camera sur le joueur
+            playerCam.Priority = hightCap;
+            mapCam.Priority = lowCap;
+            camOnMap = false;
         }
     }
 
