@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1231985778677271036}
   - component: {fileID: 4061518626412041483}
   - component: {fileID: 8359110011503869136}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Baril
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6231413697618103214}
-  m_Layer: 0
+  - component: {fileID: -954940662918759212}
+  - component: {fileID: 6390446725521759252}
+  m_Layer: 10
   m_Name: Baril_Unwraped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,3 +118,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -11.241}
+--- !u!114 &-954940662918759212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715356406770798868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6b6950b76a6614facc4404454628b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  height: 0.1
+  timer: 1
+--- !u!65 &6390446725521759252
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6715356406770798868}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 40, y: 80, z: 40}
+  m_Center: {x: 0, y: 40, z: 0}

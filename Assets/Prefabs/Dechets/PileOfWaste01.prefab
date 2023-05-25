@@ -203,7 +203,7 @@ GameObject:
   - component: {fileID: 1664449527083203782}
   - component: {fileID: 1664449527083203780}
   m_Layer: 10
-  m_Name: PileOfWaste
+  m_Name: PileOfWaste01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,11 @@ MonoBehaviour:
   maxSpawnRange: 2
   wastesNumber: 5
   wastesGOList:
-  - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
+  - {fileID: 3113702012101603713, guid: fcf2ec2e680d7994fbbd568aa02b648d, type: 3}
+  - {fileID: 3641908716392923628, guid: 932b9034057c3fa459d418c3f04aea1a, type: 3}
+  - {fileID: 8684143394225491173, guid: 6d43066a6b1148940bc8a379908bd77a, type: 3}
+  - {fileID: 6715356406770798868, guid: 10ea2ae9f02e45a4b892d1679eae19e4, type: 3}
+  - {fileID: 9144377812044682502, guid: b7a381280ecdff94694deea10698832a, type: 3}
 --- !u!1 &3267787615959165282
 GameObject:
   m_ObjectHideFlags: 0
