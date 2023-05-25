@@ -56,7 +56,7 @@ public class PlayerInputManager : MonoBehaviour
     {
         canSelect = true;
         mousePos = Mouse.current.position.ReadValue();
-        Invoke("SelectTimer", 0.1f);
+        Invoke("SelectTimer", 0.05f);
     }
 
     private void SelectTimer()
@@ -78,12 +78,12 @@ public class PlayerInputManager : MonoBehaviour
     {
         canRightClick = true;
         mousePos = Mouse.current.position.ReadValue();
-        Invoke("RightClickTimer", 0.1f);
+        //Invoke("RightClickTimer", 0.5f);
     }
 
-    private void RightClickTimer()
-    {
-        canRightClick = false;
-    }
+    //private void RightClickTimer()
+    //{
+    //    canRightClick = false;
+    //}
     #endregion
 }

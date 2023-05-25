@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movement;
     [SerializeField] private float turnSmoothTime = 0.1f;
     [SerializeField] private float turnSmoothVelocity = 0.1f;
+
+    [Header("Player Click Movement")]
+    private Vector3 newPos;
+    private Coroutine coroutine;
+    [SerializeField] private LayerMask groundLayer;
 
     [Header("Flotaison")]
     [Tooltip("Hauteur de flotaison")]
@@ -29,14 +35,23 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool stopBoost;
     [SerializeField] private float timerBoost = 5f;
 
+    [Header("MiniMap")]
+    private bool camOnMap;
+    private int hightCap = 10;
+    private int lowCap = 5;
+
     [Header("Player Component")]
-    public Camera cam;
+    private Camera cam;
+    [SerializeField] private CinemachineVirtualCamera playerCam;
+    [SerializeField] private CinemachineVirtualCamera mapCam;
     private PlayerInputManager playerInput;
     private Rigidbody rb;
     #endregion
 
+    #region Built-in Methods
     private void Awake()
     {
+        cam = Camera.main;
         playerInput = GetComponent<PlayerInputManager>();
         rb = GetComponent<Rigidbody>();
 
@@ -48,11 +63,14 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentSpeed = moveSpeed;
+        newPos = transform.position;
     }
 
     private void Update()
     {
         Locomotion();
+
+        RightClickMovment();
 
         BoostManager();
     }
@@ -61,7 +79,10 @@ public class PlayerMovement : MonoBehaviour
     {
         rb.velocity = new Vector3(movement.x * 10, playerY, movement.z * 10);
     }
+    #endregion
 
+
+    #region Customs Methods
     /// <summary>
     /// Gere le deplacement du personnage avec le character controller
     /// </summary>
@@ -104,6 +125,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    private void RightClickMovment()
+    {
+        if (playerInput.CanRightClick)
+        {
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(playerInput.MousePos);
+            if (Physics.Raycast(ray, out hit, 200f, groundLayer))
+            {
+                if (coroutine != null) StopCoroutine(coroutine);
+                coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
+            }
+
+            if (Vector3.Distance(transform.position, hit.transform.position) > 0.1f)
+            {
+                playerInput.CanRightClick = false;
+            }
+        }
+    }
+
+    private IEnumerator PlayerMoveTowards(Vector3 target)
+    {
+        float playerDistanceToFloor = transform.position.y - target.y;
+        target.y += playerDistanceToFloor;
+
+        while (Vector3.Distance(transform.position, target) > 0.1f)
+        {
+            transform.LookAt(target);
+
+            rb.AddRelativeForce(Vector3.forward * shiftSpeed * 15, ForceMode.Force);
+
+            yield return null;
+        }
+    }
+
     private void BoostManager()
     {
         if (playerInput.CanShift && !stopBoost)
@@ -133,6 +188,26 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void SwitchCameraMap()
+    {
+        if (!camOnMap)
+        {
+            // On met la camera sur la mini map
+            playerCam.Priority = lowCap;
+            mapCam.Priority = hightCap;
+            camOnMap = true;
+
+            // On executera le code d'ajout d'UI sur la mini map ici
+        }
+        else if (camOnMap)
+        {
+            // On met la camera sur le joueur
+            playerCam.Priority = hightCap;
+            mapCam.Priority = lowCap;
+            camOnMap = false;
+        }
+    }
+
     /// <summary>
     /// Permet de simuler un effet de flotaison sur les objets
     /// </summary>
@@ -140,4 +215,5 @@ public class PlayerMovement : MonoBehaviour
     {
         playerY = initialPos.y * Mathf.Sin((Time.time + offset) * timer) * height;
     }
+    #endregion
 }
