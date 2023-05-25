@@ -73,11 +73,8 @@ public class RandomNavigation : MonoBehaviour
 						_spawnPos = transform.position;
 						GetRandomDestination();
 					}
-					else if (transform.position.y - depth <= .5f){	
-						dir += new Vector3(0, -Vector3.up.y / 2, 0);
-					}
 					else{
-						dir += new Vector3(0, -Vector3.up.y, 0);
+						dir = new Vector3(0, -Vector3.up.y, 0);
 					}
 				}
 			}
