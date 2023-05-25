@@ -54,6 +54,12 @@ public class PlayerInteraction : MonoBehaviour
                 if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Enemy")){
                     hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(hit.point, _damageAmount);
                 }
+                else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Fish")){
+                    hit.transform.gameObject.GetComponent<FishToRescue>().TakeDamage(hit.point, _damageAmount);
+                }
+                else if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Waste")){
+                    hit.transform.parent.parent.gameObject.GetComponent<Waste>().TakeDamage(hit.point, _damageAmount);
+                }
             }
         }
     }

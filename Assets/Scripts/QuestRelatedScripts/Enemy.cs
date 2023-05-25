@@ -37,15 +37,16 @@ public class Enemy : MonoBehaviour
 		_qm = QuestManager.instance;
 		_playerExp = GameObject.Find("Player").GetComponent<PlayerExp>();
 		
+		transform.GetChild(1).gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
 		_currentHP = enemyMaxHP;
 		_hpToRegenInFight = enemyMaxHP * inFightRegenRate;
 		GetComponent<SphereCollider>().radius = fightAreaRadius;
-		_ui.SetEnemyHealthBar(transform.GetChild(1).gameObject, enemyMaxHP);
+		_ui.SetHealthBar(transform.GetChild(1).gameObject, enemyMaxHP);
     }
 
 	void Update(){
 		if (_isMoving){
-			_ui.EnemyHealthBarRotation(transform.GetChild(1).gameObject);
+			_ui.HealthBarRotation(transform.GetChild(1).gameObject);
 		}
 	}
 	
@@ -73,7 +74,7 @@ public class Enemy : MonoBehaviour
 		if (_playerInArea){
 			_currentHP -= damageAmount;
 			_ui.ShowPlayerDamage(hitPos, damageAmount);
-			_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
+			_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 			if (_currentHP <= 0){
 				Death();
 			}
@@ -93,11 +94,11 @@ public class Enemy : MonoBehaviour
 			for (int i = 0; i < 60; i++){
 				if (_currentHP + _hpToRegenInFight / 60 >= enemyMaxHP){
 					_currentHP = enemyMaxHP;
-					_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
+					_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 				}
 				else{
 					_currentHP += _hpToRegenInFight / 60;
-					_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
+					_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 				}
 				yield return new WaitForSeconds(1f / 60f);
 			}
@@ -111,11 +112,11 @@ public class Enemy : MonoBehaviour
 			float HpToRegen = enemyMaxHP / 60;
 			if (_currentHP + HpToRegen >= enemyMaxHP){
 				_currentHP = enemyMaxHP;
-				_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
+				_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 				break;
 			}
 			_currentHP += HpToRegen;
-			_ui.UpdateEnemyHealthBar(transform.GetChild(1).gameObject, _currentHP);
+			_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 			yield return new WaitForSeconds(1f / 60f);
 		}
 		_regen = false;
