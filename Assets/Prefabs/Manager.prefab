@@ -1,0 +1,122 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5919127024345781858
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5919127024345781863}
+  - component: {fileID: 5919127024345781860}
+  - component: {fileID: 5919127024345781861}
+  - component: {fileID: 5919127024345781862}
+  - component: {fileID: 5919127024345781881}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5919127024345781863
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919127024345781858}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5919127024345781860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919127024345781858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34123b3844a95fd4484aefe85920b71e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallQuestList:
+  - {fileID: 11400000, guid: 290f6780821e45649bb2067d574de601, type: 2}
+  - {fileID: 11400000, guid: 644ddc42c5bc0864abb23de0e2666fcb, type: 2}
+  - {fileID: 11400000, guid: 904ba6638c8eb77458f916de6d1aeb3e, type: 2}
+  mediumQuestList:
+  - {fileID: 11400000, guid: 15935d8231f83814a8a51842c84db8f2, type: 2}
+  - {fileID: 11400000, guid: e41fe01ebca9ac34faa20d884a93f7e2, type: 2}
+  - {fileID: 11400000, guid: a88555e84a1e8fa46b0f7dc480daba52, type: 2}
+  greatQuestList:
+  - {fileID: 11400000, guid: 0e08c87f19af9da40abd8240a0966124, type: 2}
+  - {fileID: 11400000, guid: 28bce3eced8ddb84a931dde29614eec8, type: 2}
+  - {fileID: 11400000, guid: b37ee0f82a32cac4aade5a2a66391fa0, type: 2}
+--- !u!114 &5919127024345781861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919127024345781858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 301b1e89c207b90438be1e029f5ece08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5919127024345781862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919127024345781858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 838ffe3b7b6189748a78963ef28957b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerDamageList: {fileID: 0}
+  playerDamageGO: {fileID: 4972856614695217608, guid: 67619821fbe8cf540b992758489ebec2,
+    type: 3}
+--- !u!114 &5919127024345781881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5919127024345781858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa7026fb4ae83c64e9e120497a16f8fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  field: {fileID: 0}
+  searchPositionRaycastLength: 3
+  animalsDepthValue: []
+  surfaceRateForEachDifficulty:
+  - 0.5
+  - 0.8
+  - 1
+  lowDifficultyObjectList:
+  - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
+  lowDifficultySpawnRate:
+  - 1
+  lowDifficultyNumberToSpawn: 5
+  midDifficultyObjectList:
+  - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
+  midDifficultySpawnRate:
+  - 1
+  midDifficultyNumberToSpawn: 5
+  greatDifficultyObjectList:
+  - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
+  greatDifficultySpawnRate:
+  - 1
+  greatDifficultyNumberToSpawn: 5

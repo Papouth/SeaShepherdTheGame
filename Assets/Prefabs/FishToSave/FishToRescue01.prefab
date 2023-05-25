@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 3843100750170305947}
   - component: {fileID: 3843100750170305946}
   m_Layer: 9
-  m_Name: FishToRescue
+  m_Name: FishToRescue01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -215,9 +215,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fishMaxHP: 10
   inRangeRadius: 5
-  wastesNumber: 5
+  wastesNumber: 10
   wastesGOList:
-  - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
+  - {fileID: 3113702012101603713, guid: fcf2ec2e680d7994fbbd568aa02b648d, type: 3}
+  - {fileID: 3641908716392923628, guid: 932b9034057c3fa459d418c3f04aea1a, type: 3}
+  - {fileID: 8684143394225491173, guid: 6d43066a6b1148940bc8a379908bd77a, type: 3}
+  - {fileID: 9144377812044682502, guid: b7a381280ecdff94694deea10698832a, type: 3}
+  - {fileID: 6715356406770798868, guid: 10ea2ae9f02e45a4b892d1679eae19e4, type: 3}
   distanceBetweenFishAndWastes: 1
   depthWhenRelease: -3
 --- !u!114 &3843100750170305946
@@ -234,10 +238,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   randomXRange: 5
   randomZRange: 5
-  movementSpeed: 1
+  movementSpeed: 2
   turnSmoothVelocity: 3
   timeBetweenEachMovement: 5
   raycastDistanceForRandomDestination: 2
+  raycastDistanceForObstacleChecking: 0
 --- !u!1 &3843100750707778985
 GameObject:
   m_ObjectHideFlags: 0

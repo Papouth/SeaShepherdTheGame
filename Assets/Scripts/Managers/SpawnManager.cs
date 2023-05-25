@@ -7,7 +7,6 @@ public class SpawnManager : MonoBehaviour
 	#region Variables
 	[SerializeField] private GameObject field;
 	[SerializeField] private float searchPositionRaycastLength = 3f;
-	[SerializeField] private List<float> animalsDepthValue = new List<float>();
 
 	[Header ("Objects to spawn")]
 	[SerializeField] private List<float> surfaceRateForEachDifficulty = new List<float>();
@@ -88,9 +87,10 @@ public class SpawnManager : MonoBehaviour
 		Vector3 newPos = new Vector3(randomX, 0, randomZ);
 		RaycastHit hit;
 		Debug.DrawRay(newPos + field.transform.position, Vector3.up, Color.red, 10f);
-		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength)){
+		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength, LayerMask.NameToLayer("Ground"))){
+			print(hit.transform.gameObject.name);
 			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")){
-				GetSpawnPosition(difficulty);
+				//GetSpawnPosition(difficulty);
 				return;
 			}
 		}
