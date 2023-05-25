@@ -93,7 +93,7 @@ public class RandomNavigation : MonoBehaviour
 		_randomDestination = new Vector3(_spawnPos.x + randomX, _spawnPos.y, _spawnPos.z + randomZ);
 		RaycastHit hit;
 		if (Physics.Raycast(_randomDestination + Vector3.up * 2, -Vector3.up, out hit, raycastDistanceForRandomDestination)){
-			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")){
+			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Island")){
 				GetRandomDestination();
 				return;
 			}
