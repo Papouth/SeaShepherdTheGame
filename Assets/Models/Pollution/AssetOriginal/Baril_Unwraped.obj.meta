@@ -1,29 +1,9 @@
 fileFormatVersion: 2
-guid: d953787fecd6a374a98fd9f982092ffb
+guid: 4ebb276fecf5d2d41aa240f1c0a52e15
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Bouteilles_Unwraped_wire_028149177
-    second: {fileID: 2100000, guid: 0b431054a39360340860fe4f25389ea2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Creme_Unwraped_wire_228153184
-    second: {fileID: 2100000, guid: 8957c29fc0e75534eaa85c79eb798d3c, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Gobelet_Unwraped_wire_214229166
-    second: {fileID: 2100000, guid: 0c9559a41e1d57e4fabd28f86e83346d, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wire_198225087
-    second: {fileID: 2100000, guid: 71142a3784b8b924ab349bb86b1fb4b3, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
