@@ -12,6 +12,7 @@ public class RandomNavigation : MonoBehaviour
     [SerializeField] private float turnSmoothVelocity = .1f;
 	[SerializeField] private float timeBetweenEachMovement;
 	[SerializeField] private float raycastDistanceForRandomDestination;
+	[SerializeField] private float raycastDistanceForObstacleChecking;
 
 	private Vector3 _spawnPos;
 	private Vector3 _randomDestination = Vector3.zero;
@@ -140,9 +141,10 @@ public class RandomNavigation : MonoBehaviour
 	//Contourne les obstacles (a voir si on utilise selon les spawns)
 	private void CheckObstacles(){
 		RaycastHit hit;
-		if (Physics.Raycast(transform.position + Vector3.up / 2, transform.forward, out hit, 2f) && _distanceRemaining > 2){
+		Debug.DrawRay(transform.position, transform.forward * raycastDistanceForObstacleChecking, Color.green, 10f);
+		if (Physics.Raycast(transform.position, transform.forward * raycastDistanceForObstacleChecking, out hit, 2f) && _distanceRemaining > 2){
 			if (CheckRandomDestinationDir()){
-				FindDirForAvoindingObstacles(1f, false, false);
+				FindDirForAvoindingObstacles(raycastDistanceForObstacleChecking, false, false);
 				_hasStepDestination = true;
 			}
 		}
