@@ -20,6 +20,7 @@ public class RandomNavigation : MonoBehaviour
 	private bool _isMoving = false;
 	private bool _hasStepDestination = false;
 	private float _distanceRemaining;
+	private bool _depthReached = false;
 
 	private Rigidbody _rb;
 	#endregion
@@ -46,15 +47,41 @@ public class RandomNavigation : MonoBehaviour
 			}
 		}
 		if (_isMoving){
-			MovementRotation();
-			CheckDestinationDistance();
-			CheckObstacles();
+			if (gameObject.layer == LayerMask.NameToLayer("Fish")){
+				if (_depthReached){
+					MovementRotation();
+					CheckDestinationDistance();
+					CheckObstacles();
+				}
+			}
+			else{
+				MovementRotation();
+				CheckDestinationDistance();
+				CheckObstacles();
+			}
 		}
     }
 
 	void FixedUpdate(){
 		if (_isMoving){
-			_rb.velocity = transform.forward * movementSpeed;
+			Vector3 dir = transform.forward;
+			if (gameObject.layer == LayerMask.NameToLayer("Fish")){
+				if (!_depthReached){
+					float depth = GetComponent<FishToRescue>().DepthWhenRelease;
+					if (transform.position.y - depth <= .1f){
+						_depthReached = true;
+						_spawnPos = transform.position;
+						GetRandomDestination();
+					}
+					else if (transform.position.y - depth <= .5f){	
+						dir += new Vector3(0, -Vector3.up.y / 2, 0);
+					}
+					else{
+						dir += new Vector3(0, -Vector3.up.y, 0);
+					}
+				}
+			}
+			_rb.velocity = dir * movementSpeed;
 		}
 	}
 	#endregion

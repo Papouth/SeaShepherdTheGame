@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 	#region Variables
 	[SerializeField] private GameObject field;
 	[SerializeField] private float searchPositionRaycastLength = 3f;
+	[SerializeField] private List<float> animalsDepthValue = new List<float>();
 
 	[Header ("Objects to spawn")]
 	[SerializeField] private List<float> surfaceRateForEachDifficulty = new List<float>();

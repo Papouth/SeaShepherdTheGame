@@ -219,6 +219,7 @@ MonoBehaviour:
   wastesGOList:
   - {fileID: 8620210948279251841, guid: 6c4887705c6e7f443b40d9595a4fb752, type: 3}
   distanceBetweenFishAndWastes: 1
+  depthWhenRelease: -3
 --- !u!114 &3843100750170305946
 MonoBehaviour:
   m_ObjectHideFlags: 0
