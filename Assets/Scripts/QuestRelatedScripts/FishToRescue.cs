@@ -10,18 +10,21 @@ public class FishToRescue : MonoBehaviour
 	[SerializeField] private int wastesNumber;
 	[SerializeField] private List<GameObject> wastesGOList = new List<GameObject>();
 	[SerializeField] private float distanceBetweenFishAndWastes = 1f;
+	[SerializeField] private float depthWhenRelease;
 
 	private bool _playerInArea = false;
 	private float _currentHP;
 	private bool _canHitThis = true;
 	private float _wastesDisappearanceRate;
 	private GameObject _healthBar;
+	private Transform _wasteSelected;
 
 	private GameManager _gm;
 	private UIManager _ui;
 	#endregion
 	
 	#region Properties
+	public float DepthWhenRelease => depthWhenRelease;
 	#endregion
 	
 	#region Built-in Methods
@@ -80,17 +83,39 @@ public class FishToRescue : MonoBehaviour
 
 	//Enleve de la "vie" aux dechets puis apres un certain taux de pv restant detruit un dechet
 	public void TakeDamage(Vector3 hitPos, float damageAmount){
-		if (_playerInArea && _canHitThis){
+		if (_playerInArea && _canHitThis && CheckHitDistance(hitPos)){
 			_currentHP -= damageAmount;
 			_ui.ShowPlayerDamage(hitPos, damageAmount);
 			_ui.UpdateHealthBar(_healthBar, _currentHP);
 			if (_currentHP / fishMaxHP <= (transform.GetChild(1).childCount - 1) * _wastesDisappearanceRate){
-				Destroy(transform.GetChild(1).GetChild(transform.GetChild(1).childCount - 1).gameObject);
+				WasteToDestroy(hitPos);
 			}
 			if (_currentHP <= 0){
 				Release();
 			}
 		}
+	}
+
+	private bool CheckHitDistance(Vector3 hitPos){
+		bool canHit = false;
+		foreach (Transform waste in transform.GetChild(1)){
+			if (Vector3.Distance(hitPos, waste.position) < Vector3.Distance(hitPos, gameObject.transform.position) && !canHit){
+				canHit = true;
+			}
+		}
+		return canHit;
+	}
+
+	private void WasteToDestroy(Vector3 hit){
+		foreach (Transform waste in transform.GetChild(1)){
+			if (_wasteSelected == null){
+				_wasteSelected = waste;
+			}
+			else if (Vector3.Distance(hit, waste.position) < Vector3.Distance(hit, _wasteSelected.position)){
+				_wasteSelected = waste;
+			}
+		}
+		Destroy(_wasteSelected.gameObject);
 	}
 
 	//Le poisson est libere
