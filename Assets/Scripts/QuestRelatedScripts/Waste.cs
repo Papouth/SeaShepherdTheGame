@@ -65,7 +65,6 @@ public class Waste : MonoBehaviour
 			newWaste.SetParent(transform.GetChild(0));
 		}
 		_wastesDisappearanceRate = 1f / transform.GetChild(0).childCount;
-		print(_wastesDisappearanceRate);
 	}
 	
 	//Les dechets perdent de la "vie" puis a un certain taux de HP disparaissent
