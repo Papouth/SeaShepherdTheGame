@@ -11,8 +11,6 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     public Vector3 directionInput;
     private Vector3 movement;
-    [SerializeField] private float turnSmoothTime = 0.1f;
-    [SerializeField] private float turnSmoothVelocity = 0.1f;
 
     [Header("Player Click Movement")]
     private Vector3 newPos;
@@ -85,11 +83,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (coroutine != null) StopCoroutine(coroutine);
                 coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
-
-                if (Vector3.Distance(transform.position, hit.transform.position) > 0.2f)
-                {
-                    playerInput.CanRightClick = false;
-                }
             }
         }
     }
@@ -99,13 +92,19 @@ public class PlayerMovement : MonoBehaviour
         float playerDistanceToFloor = transform.position.y - target.y;
         target.y += playerDistanceToFloor;
 
-        while (Vector3.Distance(transform.position, target) > 0.5f)
+        while (Vector3.Distance(transform.position, target) > 0.2f)
         {
             // smooth la rotation
             var targetRotation = Quaternion.LookRotation(target - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.65f * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.85f * Time.deltaTime);
 
             rb.AddRelativeForce(Vector3.forward * currentSpeed * 20, ForceMode.Force);
+
+            if (Vector3.Distance(transform.position, target) <= 5f)
+            {
+                playerInput.CanRightClick = false;
+                if (coroutine != null) StopCoroutine(coroutine);
+            }
 
             yield return null;
         }
