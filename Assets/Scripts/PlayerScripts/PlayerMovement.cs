@@ -9,7 +9,6 @@ public class PlayerMovement : MonoBehaviour
     [Header("Player Movement")]
     public float moveSpeed = 3f;
     private float currentSpeed;
-    public float shiftSpeed = 4f;
     public Vector3 directionInput;
     private Vector3 movement;
     [SerializeField] private float turnSmoothTime = 0.1f;
@@ -29,11 +28,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 initialPos;
     private float offset;
     private float playerY;
-
-    [Header("Boost")]
-    [SerializeField] private float boostRegen = 5f;
-    [SerializeField] private bool stopBoost;
-    [SerializeField] private float timerBoost = 5f;
 
     [Header("MiniMap")]
     private bool camOnMap;
@@ -68,63 +62,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        Locomotion();
-
         RightClickMovment();
-
-        BoostManager();
     }
 
     private void FixedUpdate()
     {
         rb.velocity = new Vector3(movement.x * 10, playerY, movement.z * 10);
+
+        if (rb.velocity == Vector3.zero) FloatingEffect();
     }
     #endregion
 
 
     #region Customs Methods
-    /// <summary>
-    /// Gere le deplacement du personnage avec le character controller
-    /// </summary>
-    public void Locomotion()
-    {
-        if (!playerInput) return;
-
-        directionInput.Set(playerInput.MoveInput.x, 0, playerInput.MoveInput.y);
-
-        // Joueur regarde dans la direction où il se déplace
-        if (directionInput.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(directionInput.x, directionInput.z) * Mathf.Rad2Deg +
-                cam.transform.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle,
-                ref turnSmoothVelocity, turnSmoothTime);
-
-            transform.rotation = Quaternion.Euler(0f, angle, 0f);
-
-            directionInput = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-        }
-        else if (directionInput.magnitude < 0.1f)
-        {
-            turnSmoothVelocity = 0;
-            rb.velocity = Vector3.zero;
-            FloatingEffect();
-        }
-
-
-        if (!playerInput.CanShift)
-        {
-            // Je n'ai pas mon boost d'activé
-            movement = directionInput.normalized * (currentSpeed * Time.deltaTime);
-        }
-        else if (playerInput.CanShift)
-        {
-            // Tant que j'ai du boost je l'utilise
-            if (!stopBoost) movement = directionInput.normalized * (shiftSpeed * Time.deltaTime);
-            else if (stopBoost) movement = directionInput.normalized * (currentSpeed * Time.deltaTime);
-        }
-    }
-
     private void RightClickMovment()
     {
         if (playerInput.CanRightClick)
@@ -135,11 +85,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (coroutine != null) StopCoroutine(coroutine);
                 coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
-            }
 
-            if (Vector3.Distance(transform.position, hit.transform.position) > 0.1f)
-            {
-                playerInput.CanRightClick = false;
+                if (Vector3.Distance(transform.position, hit.transform.position) > 0.2f)
+                {
+                    playerInput.CanRightClick = false;
+                }
             }
         }
     }
@@ -149,42 +99,15 @@ public class PlayerMovement : MonoBehaviour
         float playerDistanceToFloor = transform.position.y - target.y;
         target.y += playerDistanceToFloor;
 
-        while (Vector3.Distance(transform.position, target) > 0.1f)
+        while (Vector3.Distance(transform.position, target) > 0.5f)
         {
-            transform.LookAt(target);
+            // smooth la rotation
+            var targetRotation = Quaternion.LookRotation(target - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, 0.65f * Time.deltaTime);
 
-            rb.AddRelativeForce(Vector3.forward * shiftSpeed * 15, ForceMode.Force);
+            rb.AddRelativeForce(Vector3.forward * currentSpeed * 20, ForceMode.Force);
 
             yield return null;
-        }
-    }
-
-    private void BoostManager()
-    {
-        if (playerInput.CanShift && !stopBoost)
-        {
-            timerBoost = 5f;
-
-            // Boost Activé
-            if (boostRegen > 0) boostRegen -= Time.deltaTime;
-
-            if (boostRegen <= 0)
-            {
-                // Si boost utilisé pendant 5 secondes plus de boost
-                stopBoost = true;
-            }
-        }
-
-        if (!playerInput.CanShift && boostRegen < 5)
-        {
-            // Si boost pas activé on patiente 5 secondes
-            if (timerBoost > 0) timerBoost -= Time.deltaTime;
-            else if (timerBoost <= 0)
-            {
-                // Au bout des 5 secondes on redonne du boost au joueur
-                boostRegen += Time.deltaTime * 1.25f;
-                stopBoost = false;
-            }
         }
     }
 
