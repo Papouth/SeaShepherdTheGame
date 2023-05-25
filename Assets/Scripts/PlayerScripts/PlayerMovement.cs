@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float turnSmoothVelocity = 0.1f;
 
     [Header("Player Click Movement")]
-    [SerializeField] private InputAction rightClickAction;
     private Vector3 newPos;
     private Coroutine coroutine;
     [SerializeField] private LayerMask groundLayer;
@@ -43,18 +42,6 @@ public class PlayerMovement : MonoBehaviour
     #endregion
 
     #region Built-in Methods
-    private void OnEnable()
-    {
-        rightClickAction.Enable();
-        rightClickAction.performed += ClickLocomotion;
-    }
-
-    private void OnDisable()
-    {
-        rightClickAction.performed -= ClickLocomotion;
-        rightClickAction.Disable();
-    }
-
     private void Awake()
     {
         playerInput = GetComponent<PlayerInputManager>();
@@ -74,6 +61,8 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         Locomotion();
+
+        RightClickMovment();
 
         BoostManager();
     }
@@ -128,14 +117,22 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    private void ClickLocomotion(InputAction.CallbackContext context)
+    private void RightClickMovment()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(playerInput.MousePos);
-        if (Physics.Raycast(ray, out hit, 200f, groundLayer))
+        if (playerInput.CanRightClick)
         {
-            if (coroutine != null) StopCoroutine(coroutine);
-            coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
+            RaycastHit hit;
+            Ray ray = Camera.main.ScreenPointToRay(playerInput.MousePos);
+            if (Physics.Raycast(ray, out hit, 200f, groundLayer))
+            {
+                if (coroutine != null) StopCoroutine(coroutine);
+                coroutine = StartCoroutine(PlayerMoveTowards(hit.point));
+            }
+
+            if (Vector3.Distance(transform.position, hit.transform.position) > 0.1f)
+            {
+                playerInput.CanRightClick = false;
+            }
         }
     }
 
@@ -146,11 +143,14 @@ public class PlayerMovement : MonoBehaviour
 
         while (Vector3.Distance(transform.position, target) > 0.1f)
         {
-            Vector3 destination = Vector3.MoveTowards(transform.position, target, currentSpeed * Time.deltaTime);
-            transform.position = destination;
+            transform.LookAt(target);
+
+            rb.AddRelativeForce(Vector3.forward * shiftSpeed * 15, ForceMode.Force);
+
             yield return null;
         }
     }
+
     private void BoostManager()
     {
         if (playerInput.CanShift && !stopBoost)
