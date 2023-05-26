@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Braconnage01
   m_EditorClassIdentifier: 
   questName: Braconnage01
+  questDesc: Arrete les braconniers !
   questType: 2
   exp: 10
   timeForCompletion: 1
-  fishToRelease: 
