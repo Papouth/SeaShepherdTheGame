@@ -54,14 +54,14 @@ public class Enemy : MonoBehaviour
 	void OnTriggerEnter(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player") && _currentHP != enemyMaxHP){
 			_playerInArea = true;
-			StartCoroutine(InFightRegen());
+			//StartCoroutine(InFightRegen());
 		}
 	}
 
 	void OnTriggerStay(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player") && !_playerInArea){
 			_playerInArea = true;
-			StartCoroutine(InFightRegen());
+			//StartCoroutine(InFightRegen());
 		}
 	}
 
