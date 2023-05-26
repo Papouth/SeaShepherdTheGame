@@ -66,7 +66,9 @@ public class Enemy : MonoBehaviour
 
 	void OnTriggerExit(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
-			_playerInArea = false;
+			if (Vector3.Distance(other.transform.position, transform.position) > fightAreaRadius){
+				_playerInArea = false;
+			}
 			if (_currentHP != enemyMaxHP && !_regen){
 				_regen = true;
 				StartCoroutine(ResetEnemy());
@@ -111,38 +113,39 @@ public class Enemy : MonoBehaviour
 	//Anim de regen passive en combat
 	IEnumerator InFightRegen(){
 		if (_playerInArea){
-			for (int i = 0; i < 60; i++){
-				if (_currentHP + _hpToRegenInFight / 60 >= enemyMaxHP){
-					_currentHP = enemyMaxHP;
-					_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
-				}
-				else{
-					_currentHP += _hpToRegenInFight / 60;
-					_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
-				}
-				yield return new WaitForSeconds(1f / 60f);
+			if (_currentHP + _hpToRegenInFight / 60 >= enemyMaxHP){
+				_currentHP = enemyMaxHP;
+				_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 			}
+			else{
+				_currentHP += _hpToRegenInFight / 60;
+				_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
+			}
+			yield return new WaitForSeconds(1f / 60f);
 			StartCoroutine(InFightRegen());
 		}
 	}
 
 	//Quand le joueur sort de la zone de combat, l'ennemi regagne tous ses HP en 1s
 	IEnumerator ResetEnemy(){
-		for (int i = 0; i < 60; i++){
+		if(!_playerInArea){
+			print("oui");
 			float HpToRegen = enemyMaxHP / 60;
-			if (_playerInArea){
-				break;
-			}
-			else if (_currentHP + HpToRegen >= enemyMaxHP){
-				_currentHP = enemyMaxHP;
+			for (int i = 0; i < 60; i++){
+				if (_playerInArea){
+					break;
+				}
+				else if (_currentHP + HpToRegen >= enemyMaxHP){
+					_currentHP = enemyMaxHP;
+					_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
+					break;
+				}
+				_currentHP += HpToRegen;
 				_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
-				break;
+				yield return new WaitForSeconds(1f / 60f);
 			}
-			_currentHP += HpToRegen;
-			_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
-			yield return new WaitForSeconds(1f / 60f);
+			_regen = false;
 		}
-		_regen = false;
 	}
 	#endregion
 }
