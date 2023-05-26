@@ -12,8 +12,10 @@ GameObject:
   - component: {fileID: 6478152089857581999}
   - component: {fileID: 4021696491124194019}
   - component: {fileID: 4754206655782884942}
+  - component: {fileID: 8259466105626218128}
+  - component: {fileID: 6992267693913276855}
   m_Layer: 0
-  m_Name: Ile 002
+  m_Name: Nonos Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -99,6 +101,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8766286542423003580, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &8259466105626218128
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790641496154261655}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 250
+  m_Center: {x: -0.00001821578, y: 0.00013245865, z: 75.376495}
+--- !u!114 &6992267693913276855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790641496154261655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &900356987256466096
 GameObject:
   m_ObjectHideFlags: 0
@@ -111,8 +139,10 @@ GameObject:
   - component: {fileID: 457667454148259463}
   - component: {fileID: 3267429824080516486}
   - component: {fileID: 4754206656520172264}
+  - component: {fileID: 8259466105626218127}
+  - component: {fileID: 7713510292661373289}
   m_Layer: 0
-  m_Name: Ile 003
+  m_Name: Strong Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,6 +228,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3851843102188229367, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &8259466105626218127
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900356987256466096}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 300
+  m_Center: {x: 0, y: -0.00010681152, z: 75.087}
+--- !u!114 &7713510292661373289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900356987256466096}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &1237006805168975846
 GameObject:
   m_ObjectHideFlags: 0
@@ -210,8 +266,10 @@ GameObject:
   - component: {fileID: 8983158229022765400}
   - component: {fileID: 7399790664300287916}
   - component: {fileID: 4754206656667281428}
+  - component: {fileID: 437346439}
+  - component: {fileID: 5132804959376485132}
   m_Layer: 0
-  m_Name: Ile 014
+  m_Name: True Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -297,6 +355,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -1738425598171610857, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &437346439
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237006805168975846}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 175
+  m_Center: {x: 0.0005231529, y: -0.0001997798, z: 62.10949}
+--- !u!114 &5132804959376485132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1237006805168975846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &3252815838736319176
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,8 +393,10 @@ GameObject:
   - component: {fileID: 1261020843916094524}
   - component: {fileID: 479430274921418799}
   - component: {fileID: 4754206656717701763}
+  - component: {fileID: 241111949}
+  - component: {fileID: 8868085288663868762}
   m_Layer: 0
-  m_Name: Ile 010
+  m_Name: Dobo Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,6 +482,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 3885108623649813833, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &241111949
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252815838736319176}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 200
+  m_Center: {x: 0.00048828125, y: 0.00019836426, z: 69.79813}
+--- !u!114 &8868085288663868762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3252815838736319176}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &4024683186481277978
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,8 +520,10 @@ GameObject:
   - component: {fileID: 2611287760175586448}
   - component: {fileID: 5152719131104568869}
   - component: {fileID: 4754206655111846164}
+  - component: {fileID: 14889336}
+  - component: {fileID: 5787938619190848051}
   m_Layer: 0
-  m_Name: Ile 012
+  m_Name: Donhole Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -495,6 +609,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8302486873470651482, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &14889336
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4024683186481277978}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 250
+  m_Center: {x: -0.0012207031, y: 0.000015258793, z: 58.514595}
+--- !u!114 &5787938619190848051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4024683186481277978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &5276966546771042299
 GameObject:
   m_ObjectHideFlags: 0
@@ -507,8 +647,10 @@ GameObject:
   - component: {fileID: 4265566442084236563}
   - component: {fileID: 1907122118008527704}
   - component: {fileID: 4754206656291863129}
+  - component: {fileID: 8259466105626218129}
+  - component: {fileID: 5980762381479807893}
   m_Layer: 0
-  m_Name: Ile 000
+  m_Name: Touki Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -594,6 +736,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 190401454147845015, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &8259466105626218129
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276966546771042299}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 350
+  m_Center: {x: 0.0008239746, y: 0.00062561035, z: 63.87098}
+--- !u!114 &5980762381479807893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5276966546771042299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &5565107814353689937
 GameObject:
   m_ObjectHideFlags: 0
@@ -649,8 +817,10 @@ GameObject:
   - component: {fileID: 9048881410331645195}
   - component: {fileID: 5517149333033205569}
   - component: {fileID: 4754206656753396230}
+  - component: {fileID: 109362452}
+  - component: {fileID: 2936643944660180619}
   m_Layer: 0
-  m_Name: Ile 007
+  m_Name: Monday Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -736,6 +906,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 456070250738468385, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &109362452
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296817305105775652}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 200
+  m_Center: {x: 0.00022717369, y: 30, z: 62.669632}
+--- !u!114 &2936643944660180619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6296817305105775652}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &7744771906365310705
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,8 +944,10 @@ GameObject:
   - component: {fileID: 410852090970663468}
   - component: {fileID: 7260251303086488663}
   - component: {fileID: 4754206655214982622}
+  - component: {fileID: 527775603}
+  - component: {fileID: 5613036638009562488}
   m_Layer: 0
-  m_Name: Ile 008
+  m_Name: Goofy Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -835,6 +1033,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 2589699494478757509, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &527775603
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7744771906365310705}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 250
+  m_Center: {x: 0, y: 0.000003814701, z: 101.36426}
+--- !u!114 &5613036638009562488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7744771906365310705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &7752699052931580795
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,8 +1071,10 @@ GameObject:
   - component: {fileID: 1952794538997358199}
   - component: {fileID: 4388409313534984332}
   - component: {fileID: 4754206656642936546}
+  - component: {fileID: 587490628}
+  - component: {fileID: 6296867486997602205}
   m_Layer: 0
-  m_Name: Ile 013
+  m_Name: Baguette Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -934,6 +1160,33 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 6306758309061411503, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!136 &587490628
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752699052931580795}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 200
+  m_Height: 1270
+  m_Direction: 0
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6296867486997602205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7752699052931580795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &7885907574160008500
 GameObject:
   m_ObjectHideFlags: 0
@@ -946,8 +1199,10 @@ GameObject:
   - component: {fileID: 8174394789940238445}
   - component: {fileID: 6499960223083316519}
   - component: {fileID: 4754206655308162633}
+  - component: {fileID: 526077849}
+  - component: {fileID: 7440362541698318826}
   m_Layer: 0
-  m_Name: Ile 009
+  m_Name: Mogus Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1033,6 +1288,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7496890524071317676, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &526077849
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885907574160008500}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 275
+  m_Center: {x: -0.00024414062, y: -0.000106811516, z: 67.7951}
+--- !u!114 &7440362541698318826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7885907574160008500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &8323283457703995316
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,8 +1326,10 @@ GameObject:
   - component: {fileID: 8886257444769567564}
   - component: {fileID: 3260234903892517416}
   - component: {fileID: 4754206655770134949}
+  - component: {fileID: 8259466105626218126}
+  - component: {fileID: 7561936781281519712}
   m_Layer: 0
-  m_Name: Ile 005
+  m_Name: Big Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1132,6 +1415,32 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 8880761119498088218, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &8259466105626218126
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323283457703995316}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 240
+  m_Center: {x: 0, y: -0.000015258785, z: 61.46863}
+--- !u!114 &7561936781281519712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8323283457703995316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
 --- !u!1 &8654580133154034918
 GameObject:
   m_ObjectHideFlags: 0
@@ -1144,8 +1453,10 @@ GameObject:
   - component: {fileID: 4504585052949405145}
   - component: {fileID: 5519403164330364840}
   - component: {fileID: 4754206656387056173}
+  - component: {fileID: 8259466105626218125}
+  - component: {fileID: 4189705607415609569}
   m_Layer: 0
-  m_Name: Ile 006
+  m_Name: Small Island
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1231,3 +1542,29 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 7944859433041012004, guid: 79296a06a737e78428affbeef9859f38, type: 3}
+--- !u!135 &8259466105626218125
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8654580133154034918}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 275
+  m_Center: {x: 0, y: 0.000015258793, z: 89.70249}
+--- !u!114 &4189705607415609569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8654580133154034918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c67f316113923f489ecb0431127fff3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualIsland: {fileID: 0}
