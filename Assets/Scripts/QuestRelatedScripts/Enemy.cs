@@ -51,7 +51,14 @@ public class Enemy : MonoBehaviour
 	}
 	
 	void OnTriggerEnter(Collider other){
-		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player")){
+		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player") && _currentHP != enemyMaxHP){
+			_playerInArea = true;
+			StartCoroutine(InFightRegen());
+		}
+	}
+
+	void OnTriggerStay(Collider other){
+		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player") && !_playerInArea){
 			_playerInArea = true;
 			StartCoroutine(InFightRegen());
 		}
@@ -123,7 +130,10 @@ public class Enemy : MonoBehaviour
 	IEnumerator ResetEnemy(){
 		for (int i = 0; i < 60; i++){
 			float HpToRegen = enemyMaxHP / 60;
-			if (_currentHP + HpToRegen >= enemyMaxHP){
+			if (_playerInArea){
+				break;
+			}
+			else if (_currentHP + HpToRegen >= enemyMaxHP){
 				_currentHP = enemyMaxHP;
 				_ui.UpdateHealthBar(transform.GetChild(1).gameObject, _currentHP);
 				break;
