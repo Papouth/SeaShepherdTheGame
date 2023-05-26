@@ -108,6 +108,7 @@ public class Enemy : MonoBehaviour
 	private void Death(){
 		_qm.CheckForEnemyExp(expOnDeath);
 		_gm.QuestProgress(Quest.QType.StopPoaching);
+		
 		Destroy(gameObject);
 	}
 

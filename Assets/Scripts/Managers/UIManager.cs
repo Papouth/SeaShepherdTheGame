@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIManager : MonoBehaviour
 {
 	#region Variables
 	[SerializeField] private Transform playerDamageList;
 	[SerializeField] private GameObject playerDamageGO;
+	[SerializeField] private TMP_Text questText;
 
 	public static UIManager instance;
 	#endregion
@@ -47,6 +49,10 @@ public class UIManager : MonoBehaviour
 		GameObject playerDamage = Instantiate(playerDamageGO, hitPos, Quaternion.identity);
 		playerDamage.transform.SetParent(playerDamageList);
 		playerDamage.GetComponent<PlayerDamageUI>().SetPlayerDamageText(damageAmount);
+	}
+
+	public void ChangeQuestText(string text){
+		questText.text = text;
 	}
 	#endregion
 }

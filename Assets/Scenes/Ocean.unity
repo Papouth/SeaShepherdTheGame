@@ -9456,6 +9456,7 @@ MonoBehaviour:
   playerDamageList: {fileID: 243020201}
   playerDamageGO: {fileID: 4972856614695217608, guid: 67619821fbe8cf540b992758489ebec2,
     type: 3}
+  questText: {fileID: 296912181}
 --- !u!114 &2059612832
 MonoBehaviour:
   m_ObjectHideFlags: 0
