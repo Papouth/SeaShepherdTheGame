@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Sauvetage02
   m_EditorClassIdentifier: 
   questName: Sauvetage02
+  questDesc: "Sauve un animal coinc\xE9 !"
   questType: 0
   exp: 20
   timeForCompletion: 1
-  fishToRelease: Dolphin

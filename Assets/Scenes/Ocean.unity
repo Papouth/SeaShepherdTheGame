@@ -6105,17 +6105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smallQuestList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 0e08c87f19af9da40abd8240a0966124, type: 2}
+  - {fileID: 11400000, guid: 290f6780821e45649bb2067d574de601, type: 2}
+  - {fileID: 11400000, guid: 15935d8231f83814a8a51842c84db8f2, type: 2}
   mediumQuestList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 28bce3eced8ddb84a931dde29614eec8, type: 2}
+  - {fileID: 11400000, guid: 644ddc42c5bc0864abb23de0e2666fcb, type: 2}
+  - {fileID: 11400000, guid: e41fe01ebca9ac34faa20d884a93f7e2, type: 2}
   greatQuestList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: b37ee0f82a32cac4aade5a2a66391fa0, type: 2}
+  - {fileID: 11400000, guid: 904ba6638c8eb77458f916de6d1aeb3e, type: 2}
+  - {fileID: 11400000, guid: a88555e84a1e8fa46b0f7dc480daba52, type: 2}
 --- !u!114 &2059612834
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nettoyage01
   m_EditorClassIdentifier: 
   questName: Nettoyage01
+  questDesc: "Retire 2 tas de d\xE9chets de la mer !"
   questType: 1
   exp: 10
-  timeForCompletion: 1
-  fishToRelease: 
+  timeForCompletion: 2
