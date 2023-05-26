@@ -235,7 +235,7 @@ MeshCollider:
   m_GameObject: {fileID: 252068099}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   m_Convex: 0
   m_CookingOptions: 30
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 912921713}
   - component: {fileID: 912921712}
   - component: {fileID: 912921711}
-  m_Layer: 6
+  m_Layer: 11
   m_Name: GroundTest (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 912921710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -227.7, y: 0.23, z: -67.2}
+  m_LocalPosition: {x: -206, y: 0, z: -60.1}
   m_LocalScale: {x: 229.5232, y: 0.3007216, z: 87.46321}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1144,7 +1144,7 @@ PrefabInstance:
     - target: {fileID: 1664449527083203783, guid: 1f4ffa127eb5b7946a566c14a48f3201,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1f4ffa127eb5b7946a566c14a48f3201, type: 3}
@@ -1214,6 +1214,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FishToRescue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3843100750170305951, guid: 394a71e33b978bb46b83c751ee2662d9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298545840920338202, guid: 394a71e33b978bb46b83c751ee2662d9,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6298545840920338202, guid: 394a71e33b978bb46b83c751ee2662d9,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 394a71e33b978bb46b83c751ee2662d9, type: 3}
@@ -1296,18 +1311,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 40
-  shiftSpeed: 4
   directionInput: {x: 0, y: 0, z: 0}
-  turnSmoothTime: 0.2
-  turnSmoothVelocity: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 0
   height: 0.35
   timer: 2
-  boostRegen: 5
-  stopBoost: 0
-  timerBoost: 5
   playerCam: {fileID: 0}
   mapCam: {fileID: 0}
 --- !u!114 &5159655805616152292

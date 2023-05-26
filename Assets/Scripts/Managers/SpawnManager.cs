@@ -7,6 +7,7 @@ public class SpawnManager : MonoBehaviour
 	#region Variables
 	[SerializeField] private GameObject field;
 	[SerializeField] private float searchPositionRaycastLength = 3f;
+	[SerializeField] private float spawnYOffset = -.5f;
 
 	[Header ("Objects to spawn")]
 	[SerializeField] private List<float> surfaceRateForEachDifficulty = new List<float>();
@@ -43,28 +44,29 @@ public class SpawnManager : MonoBehaviour
 	
 	#region Custom Methods
 	private void SpawnObjects(){
+		Vector3 offsetYVector = new Vector3(0, spawnYOffset, 0);
 		for (int i = 0; i < lowDifficultyObjectList.Count; i++){
 			float numberToSpawn = Mathf.Floor(lowDifficultySpawnRate[i] * lowDifficultyNumberToSpawn);
 			for (int j = 0; j < numberToSpawn; j++){
 				GetSpawnPosition(0);
-				GameObject newObject = Instantiate(lowDifficultyObjectList[i], objectSpawnPos, Quaternion.identity);
-				newObject.transform.SetParent(field.transform.GetChild(0));
+				GameObject newObject = Instantiate(lowDifficultyObjectList[i], objectSpawnPos + offsetYVector, Quaternion.identity);
+				//newObject.transform.SetParent(field.transform.GetChild(0));
 			}
 		}
 		for (int i = 0; i < midDifficultyObjectList.Count; i++){
 			float numberToSpawn = Mathf.Floor(midDifficultySpawnRate[i] * midDifficultyNumberToSpawn);
 			for (int j = 0; j < numberToSpawn; j++){
 				GetSpawnPosition(1);
-				GameObject newObject = Instantiate(midDifficultyObjectList[i], objectSpawnPos, Quaternion.identity);
-				newObject.transform.SetParent(field.transform.GetChild(1));
+				GameObject newObject = Instantiate(midDifficultyObjectList[i], objectSpawnPos + offsetYVector, Quaternion.identity);
+				//newObject.transform.SetParent(field.transform.GetChild(1));
 			}
 		}
 		for (int i = 0; i < greatDifficultyObjectList.Count; i++){
 			float numberToSpawn = Mathf.Floor(greatDifficultySpawnRate[i] * greatDifficultyNumberToSpawn);
 			for (int j = 0; j < numberToSpawn; j++){
 				GetSpawnPosition(2);
-				GameObject newObject = Instantiate(greatDifficultyObjectList[i], objectSpawnPos, Quaternion.identity);
-				newObject.transform.SetParent(field.transform.GetChild(2));
+				GameObject newObject = Instantiate(greatDifficultyObjectList[i], objectSpawnPos + offsetYVector, Quaternion.identity);
+				//newObject.transform.SetParent(field.transform.GetChild(2));
 			}
 		}
 	}
@@ -87,14 +89,16 @@ public class SpawnManager : MonoBehaviour
 		Vector3 newPos = new Vector3(randomX, 0, randomZ);
 		RaycastHit hit;
 		Debug.DrawRay(newPos + field.transform.position, Vector3.up, Color.red, 10f);
-		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength, LayerMask.NameToLayer("Ground"))){
+		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength)){
 			print(hit.transform.gameObject.name);
-			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")){
-				//GetSpawnPosition(difficulty);
+			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Island")){
+				GetSpawnPosition(difficulty);
 				return;
 			}
 		}
+
 		objectSpawnPos = newPos + field.transform.position;
+		objectSpawnPos.y = 0;
 	}
 	#endregion
 }
