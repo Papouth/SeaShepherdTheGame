@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float fightAreaRadius;
 	[SerializeField] private int expOnDeath;
 	[SerializeField] private float inFightRegenRate = .05f;
+	[SerializeField] private GameObject GOForRespawn;
 
 	private float _currentHP;
 	private bool _playerInArea = false;
@@ -71,7 +72,7 @@ public class Enemy : MonoBehaviour
 			}
 			if (_currentHP != enemyMaxHP && !_regen){
 				_regen = true;
-				StartCoroutine(ResetEnemy());
+				//StartCoroutine(ResetEnemy());
 			}
 		}
 	}
@@ -127,9 +128,9 @@ public class Enemy : MonoBehaviour
 	}
 
 	//Quand le joueur sort de la zone de combat, l'ennemi regagne tous ses HP en 1s
+	//Desactive car bug et on a plus de temps
 	IEnumerator ResetEnemy(){
 		if(!_playerInArea){
-			print("oui");
 			float HpToRegen = enemyMaxHP / 60;
 			for (int i = 0; i < 60; i++){
 				if (_playerInArea){
