@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool camOnMap;
     private int hightCap = 10;
     private int lowCap = 5;
+    [SerializeField] private GameObject batoLocalisation;
 
     [Header("Player Component")]
     private Camera cam;
@@ -56,6 +57,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentSpeed = moveSpeed;
         newPos = transform.position;
+        batoLocalisation.SetActive(false);
     }
 
     private void Update()
@@ -120,6 +122,8 @@ public class PlayerMovement : MonoBehaviour
             camOnMap = true;
 
             // On executera le code d'ajout d'UI sur la mini map ici
+            batoLocalisation.SetActive(true);
+
         }
         else if (camOnMap)
         {
@@ -127,6 +131,9 @@ public class PlayerMovement : MonoBehaviour
             playerCam.Priority = hightCap;
             mapCam.Priority = lowCap;
             camOnMap = false;
+
+            // Fin code UI
+            batoLocalisation.SetActive(false);
         }
     }
 
