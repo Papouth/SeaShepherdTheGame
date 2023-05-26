@@ -88,8 +88,8 @@ public class SpawnManager : MonoBehaviour
 		}
 		Vector3 newPos = new Vector3(randomX, 0, randomZ);
 		RaycastHit hit;
-		Debug.DrawRay(newPos + field.transform.position, Vector3.up, Color.red, 10f);
-		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength)){
+		Debug.DrawRay(newPos + field.transform.position + Vector3.up * 20, -Vector3.up * 20, Color.red, 10f);
+		if (Physics.Raycast(newPos + field.transform.position + Vector3.up * 20, -Vector3.up, out hit, searchPositionRaycastLength)){
 			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Island")){
 				GetSpawnPosition(difficulty);
 				return;
