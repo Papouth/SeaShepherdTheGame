@@ -46,6 +46,14 @@ public class Menu : MonoBehaviour
         Application.Quit();
     }
 
+    public void BackToMenu()
+    {
+        Time.timeScale = 0;
+
+        inGameUI.SetActive(false);
+        menuUI.SetActive(true);
+    }
+
     #region Bestiaire UI
     public void Bestiaire()
     {
