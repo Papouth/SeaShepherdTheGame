@@ -16,6 +16,7 @@ public class QuestManager : MonoBehaviour
 
 	private GameManager _gm;
 	private PlayerExp _player;
+	private UIManager _ui;
 
 	public static QuestManager instance;
 	#endregion
@@ -37,6 +38,7 @@ public class QuestManager : MonoBehaviour
 	void Start(){
 		_gm = GameManager.instance;
 		_player = GameObject.Find("Player").GetComponent<PlayerExp>();
+		_ui = UIManager.instance;
 
 		GameManager.QuestAdvancement += QuestAdvancement;
 		PlayerExp.ShipLevelUp += ShipMustEvolve;
@@ -53,7 +55,8 @@ public class QuestManager : MonoBehaviour
 				List<Quest> randomQuestList = ChooseRandomQuestList();
 				int randomIndex = Random.Range(0, randomQuestList.Count);
 				Quest randomQuest = randomQuestList[randomIndex];
-				
+				_ui.ChangeQuestText(randomQuest.QuestDesc);
+
 				_activeQuest = randomQuest;
 			}
 			else{

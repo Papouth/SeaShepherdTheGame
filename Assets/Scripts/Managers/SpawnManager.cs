@@ -39,6 +39,7 @@ public class SpawnManager : MonoBehaviour
     {
         fieldHalfSize = field.GetComponent<Renderer>().bounds.size / 2;
 		SpawnObjects();
+		GameManager.Respawn += RespawnGO;
 	}
 	#endregion
 	
@@ -98,6 +99,18 @@ public class SpawnManager : MonoBehaviour
 
 		objectSpawnPos = newPos + field.transform.position;
 		objectSpawnPos.y = 0;
+	}
+
+	public void RespawnGO(GameObject GOToRespawn, int difficulty){
+		StartCoroutine(Respawn(GOToRespawn, difficulty));
+	}
+
+	IEnumerator Respawn(GameObject objectToRespawn, int difficulty){
+		yield return new WaitForSeconds(30f);
+		GetSpawnPosition(difficulty);
+		Vector3 yOffset = new Vector3(0, spawnYOffset, 0);
+		GameObject newObject = Instantiate(objectToRespawn, objectSpawnPos + yOffset, Quaternion.identity);
+
 	}
 	#endregion
 }
