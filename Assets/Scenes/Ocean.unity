@@ -734,8 +734,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132829614}
   m_LocalRotation: {x: -0.015851852, y: 0.015948981, z: -0.70476556, w: 0.7090839}
-  m_LocalPosition: {x: 25, y: 24, z: -228}
-  m_LocalScale: {x: 508.74768, y: 473.3709, z: 0.8333332}
+  m_LocalPosition: {x: 9, y: 24, z: -228}
+  m_LocalScale: {x: 537.4295, y: 634.20123, z: 0.8333332}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 51542095}
@@ -3244,7 +3244,7 @@ GameObject:
   - component: {fileID: 877031887}
   - component: {fileID: 877031886}
   m_Layer: 0
-  m_Name: Field
+  m_Name: FieldForSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6937,6 +6937,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   field: {fileID: 877031885}
   searchPositionRaycastLength: 200
+  spawnYOffset: -0.2
   surfaceRateForEachDifficulty:
   - 0.5
   - 0.7
@@ -6950,12 +6951,24 @@ MonoBehaviour:
   - 0.6
   - 0.2
   lowDifficultyNumberToSpawn: 10
-  midDifficultyObjectList: []
-  midDifficultySpawnRate: []
-  midDifficultyNumberToSpawn: 0
-  greatDifficultyObjectList: []
-  greatDifficultySpawnRate: []
-  greatDifficultyNumberToSpawn: 0
+  midDifficultyObjectList:
+  - {fileID: 5583764323202765801, guid: e34040126463cca4e8271a3e329fcc0c, type: 3}
+  - {fileID: 1664449527083203783, guid: ff0d8db92e0411244a2ea8ace5139694, type: 3}
+  - {fileID: 3843100750170305951, guid: ed5c4c2930b1c7d48a86bdaa204d5202, type: 3}
+  midDifficultySpawnRate:
+  - 0.2
+  - 0.6
+  - 0.2
+  midDifficultyNumberToSpawn: 10
+  greatDifficultyObjectList:
+  - {fileID: 5583764323202765801, guid: cf3a038b5f56e0e44bd01cfcbd62ef79, type: 3}
+  - {fileID: 1664449527083203783, guid: 12ba9f1b253e44541bd7aec478dfaae4, type: 3}
+  - {fileID: 3843100750170305951, guid: 47232a89a3ecce049a3389a8002435c8, type: 3}
+  greatDifficultySpawnRate:
+  - 0.2
+  - 0.6
+  - 0.2
+  greatDifficultyNumberToSpawn: 10
 --- !u!114 &2059612833
 MonoBehaviour:
   m_ObjectHideFlags: 0

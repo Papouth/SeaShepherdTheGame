@@ -143,9 +143,11 @@ public class RandomNavigation : MonoBehaviour
 		RaycastHit hit;
 		Debug.DrawRay(transform.position, transform.forward * raycastDistanceForObstacleChecking, Color.green, 10f);
 		if (Physics.Raycast(transform.position, transform.forward * raycastDistanceForObstacleChecking, out hit, 2f) && _distanceRemaining > 2){
-			if (CheckRandomDestinationDir()){
-				FindDirForAvoindingObstacles(raycastDistanceForObstacleChecking, false, false);
-				_hasStepDestination = true;
+			if (hit.transform.gameObject.layer != gameObject.layer){
+				if (CheckRandomDestinationDir()){
+					FindDirForAvoindingObstacles(raycastDistanceForObstacleChecking, false, false);
+					_hasStepDestination = true;
+				}
 			}
 		}
 	}
