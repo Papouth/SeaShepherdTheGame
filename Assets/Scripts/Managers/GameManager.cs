@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 
 	public static GameManager instance;
 	public static event Action<Quest.QType> QuestAdvancement;
+	public static event Action<GameObject, int> Respawn;
 	#endregion
 	
 	#region Properties
@@ -41,6 +42,10 @@ public class GameManager : MonoBehaviour
 	//Lorqu'on a fait une action qui peut faire avancer une quete
 	public void QuestProgress(Quest.QType questType){
 		QuestAdvancement?.Invoke(questType);
+	}
+
+	public void RespawnDead(GameObject go, int difficulty){
+		Respawn?.Invoke(go, difficulty);
 	}
 
 	// QuestProgress a replacer aux endroits adequats
