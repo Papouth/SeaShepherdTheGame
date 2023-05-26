@@ -9,6 +9,8 @@ public class PlayerInteraction : MonoBehaviour
 
     private bool _onClick = false;
     private float _damageAmount;
+    private AudioSource source;
+    [SerializeField] AudioClip honkClip;
     #endregion
 
     #region Properties
@@ -22,11 +24,13 @@ public class PlayerInteraction : MonoBehaviour
     private void Start()
     {
         playerInput = GetComponent<PlayerInputManager>();
+        source = GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        Honking();
+        if (playerInput.CanHonk) Honking();
+
         if (playerInput.CanSelect){
             OnPlayerSelect();
         }
@@ -40,6 +44,7 @@ public class PlayerInteraction : MonoBehaviour
     private void Honking()
     {
         // Bruit du klaxon
+        source.PlayOneShot(honkClip);
         playerInput.CanHonk = false;
     }
 

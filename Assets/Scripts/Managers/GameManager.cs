@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 			return;
 		}
 		instance = this;
-		
 	}
 
 	void Start(){
