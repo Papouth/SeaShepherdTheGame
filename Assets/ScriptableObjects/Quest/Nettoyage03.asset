@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Nettoyage03
   m_EditorClassIdentifier: 
   questName: Nettoyage03
+  questDesc: Retire 6 tas de dechets de la mer !
   questType: 1
   exp: 30
-  timeForCompletion: 1
-  fishToRelease: 
+  timeForCompletion: 6
