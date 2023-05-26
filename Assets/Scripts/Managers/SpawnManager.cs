@@ -90,7 +90,6 @@ public class SpawnManager : MonoBehaviour
 		RaycastHit hit;
 		Debug.DrawRay(newPos + field.transform.position, Vector3.up, Color.red, 10f);
 		if (Physics.Raycast(newPos + field.transform.position + Vector3.up, -Vector3.up, out hit, searchPositionRaycastLength)){
-			print(hit.transform.gameObject.name);
 			if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Island")){
 				GetSpawnPosition(difficulty);
 				return;
