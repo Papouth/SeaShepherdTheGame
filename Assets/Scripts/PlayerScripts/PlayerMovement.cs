@@ -28,7 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private float playerY;
 
     [Header("MiniMap")]
-    private bool camOnMap;
+    [HideInInspector] public bool camOnMap;
     private int hightCap = 10;
     private int lowCap = 5;
     [SerializeField] private GameObject batoLocalisation;
