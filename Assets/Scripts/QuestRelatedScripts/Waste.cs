@@ -16,9 +16,11 @@ public class Waste : MonoBehaviour
 	private float _currentHP;
 	private GameObject _healthBar;
 	private Transform _wasteSelected;
+	private GameObject canvasMap;
 
 	private GameManager _gm;
 	private UIManager _ui;
+	private PlayerMovement playerMove;
 	#endregion
 	
 	#region Properties
@@ -29,9 +31,17 @@ public class Waste : MonoBehaviour
     {
         _gm = GameManager.instance;
 		_ui = UIManager.instance;
-		
+		playerMove = FindObjectOfType<PlayerMovement>();
+
+
 		_healthBar = transform.GetChild(1).gameObject;
 		_healthBar.GetComponent<Canvas>().worldCamera = Camera.main;
+
+		// UI worldspace Mini Map
+		canvasMap = transform.GetChild(2).gameObject;
+		canvasMap.GetComponent<Canvas>().worldCamera = Camera.main;
+		canvasMap.SetActive(false);
+
 		_currentHP = wasteMaxHP;
 		_ui.SetHealthBar(_healthBar, wasteMaxHP);
 		_ui.HealthBarRotation(_healthBar);
@@ -53,11 +63,25 @@ public class Waste : MonoBehaviour
 			_healthBar.SetActive(false);
 		}
 	}
-	#endregion
-	
-	#region Custom Methods
-	//Spawn les dechets qui disparaitront avec les clicks
-	private void SpawnWastes(){
+
+    private void Update()
+    {
+		if (playerMove.camOnMap)
+		{
+			// La camera est sur la map on affiche donc l'icone du bateau
+			canvasMap.SetActive(true);
+		}
+		else if (!playerMove.camOnMap)
+		{
+			// La camera est sur le joueur on cache donc l'icone du bateau
+			canvasMap.SetActive(false);
+		}
+	}
+    #endregion
+
+    #region Custom Methods
+    //Spawn les dechets qui disparaitront avec les clicks
+    private void SpawnWastes(){
 		for (int i = 0; i < wastesNumber; i++){
 			float randomX = Random.Range(-maxSpawnRange, maxSpawnRange);
 			float randomZ = Random.Range(-maxSpawnRange, maxSpawnRange);

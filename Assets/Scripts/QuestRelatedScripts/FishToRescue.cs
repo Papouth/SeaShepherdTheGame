@@ -11,6 +11,7 @@ public class FishToRescue : MonoBehaviour
 	[SerializeField] private List<GameObject> wastesGOList = new List<GameObject>();
 	[SerializeField] private float distanceBetweenFishAndWastes = 1f;
 	[SerializeField] private float depthWhenRelease;
+	[SerializeField] private GameObject canvasMap;
 
 	private bool _playerInArea = false;
 	private float _currentHP;
@@ -21,6 +22,7 @@ public class FishToRescue : MonoBehaviour
 
 	private GameManager _gm;
 	private UIManager _ui;
+	private PlayerMovement playerMove;
 	#endregion
 	
 	#region Properties
@@ -32,9 +34,15 @@ public class FishToRescue : MonoBehaviour
     {
 		_gm = GameManager.instance;
 		_ui = UIManager.instance;
-		
+		playerMove = FindObjectOfType<PlayerMovement>();
+
 		_healthBar = transform.GetChild(2).gameObject;
 		_healthBar.GetComponent<Canvas>().worldCamera = Camera.main;
+
+		// UI worldspace Mini Map
+		canvasMap.GetComponent<Canvas>().worldCamera = Camera.main;
+		canvasMap.SetActive(false);
+
 		_currentHP = fishMaxHP;
 		_wastesDisappearanceRate = 1f / wastesNumber;
 		GetComponent<SphereCollider>().radius = inRangeRadius;
@@ -61,11 +69,25 @@ public class FishToRescue : MonoBehaviour
 			}
 		}
 	}
-	#endregion
-	
-	#region Custom Methods
-	//Spawn les dechets qui vont disparaitre au fur et a mesure des clicks
-	private void SpawnWastes(){
+
+    private void Update()
+    {
+		if (playerMove.camOnMap)
+		{
+			// La camera est sur la map on affiche donc l'icone du bateau
+			canvasMap.SetActive(true);
+		}
+		else if (!playerMove.camOnMap)
+		{
+			// La camera est sur le joueur on cache donc l'icone du bateau
+			canvasMap.SetActive(false);
+		}
+	}
+    #endregion
+
+    #region Custom Methods
+    //Spawn les dechets qui vont disparaitre au fur et a mesure des clicks
+    private void SpawnWastes(){
 		for (int i = 0; i < wastesNumber; i++){
 			float randomX = 0;
 			float randomZ = 0;

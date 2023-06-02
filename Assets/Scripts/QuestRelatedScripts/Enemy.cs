@@ -16,11 +16,13 @@ public class Enemy : MonoBehaviour
 	private bool _regen = false;
 	private float _hpToRegenInFight;
 	private bool _isMoving = false;
+	private GameObject canvasMap;
 
 	private PlayerExp _playerExp;
 	private UIManager _ui;
 	private GameManager _gm;
 	private QuestManager _qm;
+	private PlayerMovement playerMove;
 	#endregion
 	
 	#region Properties
@@ -37,8 +39,16 @@ public class Enemy : MonoBehaviour
 		_gm = GameManager.instance;
 		_qm = QuestManager.instance;
 		_playerExp = GameObject.Find("Player").GetComponent<PlayerExp>();
+		playerMove = FindObjectOfType<PlayerMovement>();
 		
+		// UI worldspace Vie
 		transform.GetChild(1).gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
+		
+		// UI worldspace Mini Map
+		canvasMap = transform.GetChild(2).gameObject;
+		canvasMap.GetComponent<Canvas>().worldCamera = Camera.main;
+		canvasMap.SetActive(false);
+
 		_currentHP = enemyMaxHP;
 		_hpToRegenInFight = enemyMaxHP * inFightRegenRate;
 		GetComponent<SphereCollider>().radius = fightAreaRadius;
@@ -48,10 +58,21 @@ public class Enemy : MonoBehaviour
 	void Update(){
 		if (_isMoving){
 		_ui.HealthBarRotation(transform.GetChild(1).gameObject);
-		}
-	}
-	
-	void OnTriggerEnter(Collider other){
+        }
+
+        if (playerMove.camOnMap)
+        {
+            // La camera est sur la map on affiche donc l'icone du bateau
+            canvasMap.SetActive(true);
+        }
+		else if (!playerMove.camOnMap)
+        {
+			// La camera est sur le joueur on cache donc l'icone du bateau
+			canvasMap.SetActive(false);
+        }
+    }
+
+    void OnTriggerEnter(Collider other){
 		if (other.transform.gameObject.layer == LayerMask.NameToLayer("Player") && _currentHP != enemyMaxHP){
 			_playerInArea = true;
 			//StartCoroutine(InFightRegen());
